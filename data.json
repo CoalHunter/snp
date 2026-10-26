@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-10-26 07:28:34",
+    "last_updated": "2026-10-26 08:46:45",
     "total_etf": 50,
     "stocks": [
         {
@@ -9,7 +9,7 @@
             "current_price": 35.27,
             "fundamental": {
                 "pe_ratio": 19.7,
-                "dividend_yield": "3.24%",
+                "dividend_yield": "324.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -32,7 +32,7 @@
             "current_price": 243.12,
             "fundamental": {
                 "pe_ratio": 25.42,
-                "dividend_yield": "1.56%",
+                "dividend_yield": "156.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
@@ -55,7 +55,7 @@
             "current_price": 79.65,
             "fundamental": {
                 "pe_ratio": 22.74,
-                "dividend_yield": "1.98%",
+                "dividend_yield": "198.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -78,7 +78,7 @@
             "current_price": 58.32,
             "fundamental": {
                 "pe_ratio": 23.09,
-                "dividend_yield": "2.17%",
+                "dividend_yield": "217.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -101,7 +101,7 @@
             "current_price": 161.26,
             "fundamental": {
                 "pe_ratio": 15.55,
-                "dividend_yield": "3.51%",
+                "dividend_yield": "351.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
@@ -124,7 +124,7 @@
             "current_price": 30.42,
             "fundamental": {
                 "pe_ratio": 21.51,
-                "dividend_yield": "3.05%",
+                "dividend_yield": "305.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -170,7 +170,7 @@
             "current_price": 698.58,
             "fundamental": {
                 "pe_ratio": 24.13,
-                "dividend_yield": "1.06%",
+                "dividend_yield": "106.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -193,7 +193,7 @@
             "current_price": 763.25,
             "fundamental": {
                 "pe_ratio": 24.13,
-                "dividend_yield": "1.10%",
+                "dividend_yield": "110.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -216,7 +216,7 @@
             "current_price": 216.54,
             "fundamental": {
                 "pe_ratio": 21.08,
-                "dividend_yield": "1.53%",
+                "dividend_yield": "153.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -239,7 +239,7 @@
             "current_price": 373.01,
             "fundamental": {
                 "pe_ratio": 23.57,
-                "dividend_yield": "1.06%",
+                "dividend_yield": "106.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -423,7 +423,7 @@
             "current_price": 55.9,
             "fundamental": {
                 "pe_ratio": 15.93,
-                "dividend_yield": "1.55%",
+                "dividend_yield": "155.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
@@ -446,7 +446,7 @@
             "current_price": 179.28,
             "fundamental": {
                 "pe_ratio": 31.97,
-                "dividend_yield": "1.52%",
+                "dividend_yield": "152.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
@@ -469,7 +469,7 @@
             "current_price": 69.33,
             "fundamental": {
                 "pe_ratio": 19.75,
-                "dividend_yield": "2.48%",
+                "dividend_yield": "248.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -492,7 +492,7 @@
             "current_price": 164.62,
             "fundamental": {
                 "pe_ratio": 27.05,
-                "dividend_yield": "1.13%",
+                "dividend_yield": "113.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
@@ -515,7 +515,7 @@
             "current_price": 105.51,
             "fundamental": {
                 "pe_ratio": 15.48,
-                "dividend_yield": "1.24%",
+                "dividend_yield": "124.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
@@ -561,7 +561,7 @@
             "current_price": 88.26,
             "fundamental": {
                 "pe_ratio": 26.19,
-                "dividend_yield": "2.73%",
+                "dividend_yield": "273.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
@@ -584,7 +584,7 @@
             "current_price": 42.57,
             "fundamental": {
                 "pe_ratio": 30.39,
-                "dividend_yield": "3.53%",
+                "dividend_yield": "353.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
@@ -607,7 +607,7 @@
             "current_price": 42.56,
             "fundamental": {
                 "pe_ratio": 19.27,
-                "dividend_yield": "3.07%",
+                "dividend_yield": "307.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -630,7 +630,7 @@
             "current_price": 51.31,
             "fundamental": {
                 "pe_ratio": 23.91,
-                "dividend_yield": "1.77%",
+                "dividend_yield": "177.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -676,7 +676,7 @@
             "current_price": 287.22,
             "fundamental": {
                 "pe_ratio": 19.2,
-                "dividend_yield": "1.28%",
+                "dividend_yield": "128.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
@@ -699,7 +699,7 @@
             "current_price": 82.53,
             "fundamental": {
                 "pe_ratio": 15.59,
-                "dividend_yield": "2.34%",
+                "dividend_yield": "234.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
@@ -722,7 +722,7 @@
             "current_price": 69.05,
             "fundamental": {
                 "pe_ratio": 15.63,
-                "dividend_yield": "2.41%",
+                "dividend_yield": "241.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
@@ -745,7 +745,7 @@
             "current_price": 56.84,
             "fundamental": {
                 "pe_ratio": 15.45,
-                "dividend_yield": "2.05%",
+                "dividend_yield": "205.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
@@ -768,7 +768,7 @@
             "current_price": 102.63,
             "fundamental": {
                 "pe_ratio": 16.97,
-                "dividend_yield": "3.24%",
+                "dividend_yield": "324.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
@@ -791,7 +791,7 @@
             "current_price": 62.01,
             "fundamental": {
                 "pe_ratio": 13.3,
-                "dividend_yield": "1.67%",
+                "dividend_yield": "167.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
@@ -814,7 +814,7 @@
             "current_price": 71.2,
             "fundamental": {
                 "pe_ratio": "N/A",
-                "dividend_yield": "4.17%",
+                "dividend_yield": "417.00%",
                 "verdict": "N/A (ETF)"
             },
             "collector_status": {
@@ -836,9 +836,9 @@
             "category": "Bond",
             "current_price": 95.96,
             "fundamental": {
-                "pe_ratio": "N/A",
-                "dividend_yield": "4.19%",
-                "verdict": "N/A (ETF)"
+                "pe_ratio": 122.4,
+                "dividend_yield": "419.00%",
+                "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": true,
@@ -859,9 +859,9 @@
             "category": "Bond",
             "current_price": 81.34,
             "fundamental": {
-                "pe_ratio": -4067.0,
-                "dividend_yield": "5.00%",
-                "verdict": "MURAH"
+                "pe_ratio": "N/A",
+                "dividend_yield": "500.00%",
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": true,
@@ -882,9 +882,9 @@
             "category": "Bond",
             "current_price": 81.5,
             "fundamental": {
-                "pe_ratio": "N/A",
-                "dividend_yield": "3.65%",
-                "verdict": "N/A (ETF)"
+                "pe_ratio": 3704.55,
+                "dividend_yield": "365.00%",
+                "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": false,
@@ -905,9 +905,9 @@
             "category": "Bond",
             "current_price": 103.85,
             "fundamental": {
-                "pe_ratio": "N/A",
-                "dividend_yield": "4.91%",
-                "verdict": "N/A (ETF)"
+                "pe_ratio": 31.4,
+                "dividend_yield": "491.00%",
+                "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": true,
@@ -928,9 +928,9 @@
             "category": "Bond",
             "current_price": 77.05,
             "fundamental": {
-                "pe_ratio": "N/A",
-                "dividend_yield": "6.14%",
-                "verdict": "N/A (ETF)"
+                "pe_ratio": 1284.17,
+                "dividend_yield": "614.00%",
+                "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": true,
@@ -951,9 +951,9 @@
             "category": "Bond",
             "current_price": 92.52,
             "fundamental": {
-                "pe_ratio": "N/A",
-                "dividend_yield": "6.83%",
-                "verdict": "N/A (ETF)"
+                "pe_ratio": 19.38,
+                "dividend_yield": "683.00%",
+                "verdict": "WAJAR"
             },
             "collector_status": {
                 "is_accumulating": true,
@@ -1020,9 +1020,9 @@
             "category": "Komoditas",
             "current_price": 169.53,
             "fundamental": {
-                "pe_ratio": "N/A",
+                "pe_ratio": 51.3,
                 "dividend_yield": "0.00%",
-                "verdict": "N/A (ETF)"
+                "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": false,
@@ -1044,7 +1044,7 @@
             "current_price": 27.87,
             "fundamental": {
                 "pe_ratio": 11.77,
-                "dividend_yield": "3.24%",
+                "dividend_yield": "324.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
@@ -1067,7 +1067,7 @@
             "current_price": 92.69,
             "fundamental": {
                 "pe_ratio": 29.34,
-                "dividend_yield": "3.80%",
+                "dividend_yield": "380.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
@@ -1090,7 +1090,7 @@
             "current_price": 98.4,
             "fundamental": {
                 "pe_ratio": 26.5,
-                "dividend_yield": "2.51%",
+                "dividend_yield": "251.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
@@ -1113,7 +1113,7 @@
             "current_price": 10.83,
             "fundamental": {
                 "pe_ratio": "N/A",
-                "dividend_yield": "28.64%",
+                "dividend_yield": "2864.00%",
                 "verdict": "N/A (ETF)"
             },
             "collector_status": {

@@ -1,0 +1,97 @@
+{
+    "last_updated": "2026-10-26 05:51:53",
+    "stocks": [
+        {
+            "ticker": "SPY",
+            "name": "State Street SPDR S&P 500 ETF T",
+            "category": "Swing S&P 500",
+            "current_price": 759.97,
+            "fundamental": {
+                "pe_ratio": "N/A",
+                "dividend_yield": "99.00%",
+                "verdict": "MAHAL"
+            },
+            "collector_status": {
+                "is_accumulating": false,
+                "status_text": "\u26aa NETRAL",
+                "up_vol_pct": 48.8,
+                "distance_from_low": "1.6%"
+            },
+            "action_plan": {
+                "buy_zone": 755.22,
+                "target_sell": 805.57,
+                "stop_loss": 725.31,
+                "potential_profit": "6.7%"
+            }
+        },
+        {
+            "ticker": "VOO",
+            "name": "Vanguard S&P 500 ETF",
+            "category": "Swing S&P 500",
+            "current_price": 698.58,
+            "fundamental": {
+                "pe_ratio": "N/A",
+                "dividend_yield": "106.00%",
+                "verdict": "MAHAL"
+            },
+            "collector_status": {
+                "is_accumulating": true,
+                "status_text": " AKUMULASI BANDAR",
+                "up_vol_pct": 56.0,
+                "distance_from_low": "1.6%"
+            },
+            "action_plan": {
+                "buy_zone": 694.15,
+                "target_sell": 740.49,
+                "stop_loss": 666.65,
+                "potential_profit": "6.7%"
+            }
+        },
+        {
+            "ticker": "SCHD",
+            "name": "Schwab US Dividend Equity ETF",
+            "category": "Dividen Play",
+            "current_price": 35.27,
+            "fundamental": {
+                "pe_ratio": "N/A",
+                "dividend_yield": "324.00%",
+                "verdict": "MAHAL"
+            },
+            "collector_status": {
+                "is_accumulating": true,
+                "status_text": " AKUMULASI BANDAR",
+                "up_vol_pct": 80.4,
+                "distance_from_low": "9.0%"
+            },
+            "action_plan": {
+                "buy_zone": 32.68,
+                "target_sell": 37.39,
+                "stop_loss": 31.39,
+                "potential_profit": "14.4%"
+            }
+        },
+        {
+            "ticker": "QQQ",
+            "name": "Invesco QQQ Trust, Series 1",
+            "category": "Swing Tech",
+            "current_price": 704.4,
+            "fundamental": {
+                "pe_ratio": "N/A",
+                "dividend_yield": "42.00%",
+                "verdict": "MAHAL"
+            },
+            "collector_status": {
+                "is_accumulating": false,
+                "status_text": "\u26aa NETRAL",
+                "up_vol_pct": 36.5,
+                "distance_from_low": "0.7%"
+            },
+            "action_plan": {
+                "buy_zone": 706.26,
+                "target_sell": 762.86,
+                "stop_loss": 678.29,
+                "potential_profit": "8.0%"
+            }
+        }
+    ]
+}

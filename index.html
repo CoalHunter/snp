@@ -5,53 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S&P500 Spot Detectors</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --primary: #ee4d2d; /* Warna khas Shopee */
+            --primary: #ee4d2d;
+            --primary-dark: #d73211;
             --secondary: #fff;
             --bg: #f5f5f5;
             --text: #222;
             --text-light: #757575;
             --success: #26aa99;
             --warning: #ffcd00;
+            --card-bg: #fff;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background-color: var(--bg);
             color: var(--text);
-            margin: 0;
-            padding: 0;
+            line-height: 1.5;
         }
 
-        /* HEADER */
+        /* HEADER - Diperbaiki */
         header {
-            background: linear-gradient(to bottom, #f53d2d, #ff6633);
-            padding: 15px 5%;
+            background: linear-gradient(135deg, #f53d2d 0%, #ff6633 100%);
+            padding: 12px 16px;
             color: white;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        .logo { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
-        .search-bar {
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .search-container {
             flex: 1;
-            max-width: 600px;
-            margin: 0 20px;
-            padding: 8px 15px;
+            min-width: 0;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 8px 12px;
             border: none;
             border-radius: 4px;
             outline: none;
+            font-size: 14px;
+            background: white;
         }
 
-        /* CATEGORIES */
+        .lang-switch {
+            font-size: 12px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* CATEGORIES - Diperbaiki */
         .categories {
             background: white;
-            padding: 15px 5%;
-            border-bottom: 1px solid #ddd;
+            padding: 12px 16px;
             display: flex;
-            gap: 15px;
+            gap: 8px;
             overflow-x: auto;
+            border-bottom: 1px solid #e0e0e0;
+            -webkit-overflow-scrolling: touch;
         }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
         .cat-btn {
             padding: 8px 16px;
             border: 1px solid #ddd;
@@ -59,94 +94,210 @@
             background: white;
             cursor: pointer;
             white-space: nowrap;
-            font-size: 14px;
-            transition: 0.2s;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            flex-shrink: 0;
         }
-        .cat-btn:hover, .cat-btn.active {
+
+        .cat-btn:hover {
+            background: #fff5f3;
+            border-color: var(--primary);
+        }
+
+        .cat-btn.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
         }
 
-        /* GRID KARTU SAHAM (STYLING SHOPEE) */
-        .container { padding: 20px 5%; }
+        /* GRID - Diperbaiki */
+        .container {
+            padding: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
         }
+
+        @media (max-width: 480px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* CARD - Diperbaiki */
         .card {
-            background: white;
-            border-radius: 4px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
             overflow: hidden;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            position: relative;
+            transition: all 0.2s;
             border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
         }
+
         .card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             border-color: var(--primary);
         }
+
         .card-img {
-            height: 150px;
-            background: #f0f0f0;
+            height: 120px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
-            font-weight: bold;
+            font-size: 32px;
+            font-weight: 700;
             color: var(--primary);
+            border-bottom: 1px solid #f0f0f0;
         }
-        .card-body { padding: 10px; }
-        .card-title { font-size: 14px; margin: 0 0 5px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .card-price { color: var(--primary); font-size: 18px; font-weight: bold; margin-bottom: 8px; }
-        
-        /* BADGES */
+
+        .card-body {
+            padding: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 12px;
+            margin: 0 0 6px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        .card-price {
+            color: var(--primary);
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 8px;
+            min-height: 24px;
+        }
+
         .badge {
             display: inline-block;
-            padding: 2px 6px;
-            border-radius: 2px;
-            font-size: 11px;
-            font-weight: bold;
-            margin-right: 4px;
-            margin-bottom: 5px;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1.2;
         }
-        .badge-swing { background: #ffead5; color: var(--primary); border: 1px solid var(--primary); }
-        .badge-dividen { background: #e6f7f2; color: var(--success); border: 1px solid var(--success); }
-        .badge-accumulation { background: #ff0000; color: white; animation: pulse 1.5s infinite; }
-        
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
 
-        .card-stats { font-size: 12px; color: var(--text-light); display: flex; justify-content: space-between; margin-top: 8px; }
+        .badge-swing {
+            background: #fff5f3;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
 
-        /* POPUP MODAL */
+        .badge-dividen {
+            background: #e6f7f2;
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .badge-accumulation {
+            background: #ff0000;
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .card-stats {
+            font-size: 11px;
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 8px;
+            border-top: 1px solid #f5f5f5;
+        }
+
+        /* MODAL - Diperbaiki */
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(0,0,0,0.6);
             z-index: 1000;
             justify-content: center;
-            align-items: center;
+            align-items: flex-end;
+            padding: 0;
         }
-        .modal-overlay.active { display: flex; }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
         .modal {
             background: white;
-            width: 90%;
+            width: 100%;
             max-width: 600px;
-            max-height: 85vh;
-            border-radius: 8px;
+            max-height: 90vh;
+            border-radius: 16px 16px 0 0;
             overflow-y: auto;
             position: relative;
             animation: slideUp 0.3s ease;
         }
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
+
+        @media (min-width: 768px) {
+            .modal-overlay {
+                align-items: center;
+                padding: 20px;
+            }
+
+            .modal {
+                border-radius: 12px;
+                max-height: 85vh;
+            }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
         .modal-header {
-            padding: 20px;
+            padding: 16px 20px;
             border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
@@ -156,28 +307,121 @@
             background: white;
             z-index: 10;
         }
-        .modal-close { font-size: 24px; cursor: pointer; color: #999; }
-        .modal-body { padding: 20px; }
-        
-        .info-section { margin-bottom: 20px; }
-        .info-section h3 { font-size: 16px; color: var(--primary); margin-bottom: 10px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 4px;}
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .info-item { background: #f9f9f9; padding: 10px; border-radius: 4px; }
-        .info-label { font-size: 12px; color: var(--text-light); }
-        .info-value { font-size: 16px; font-weight: bold; margin-top: 4px; }
-        .info-value.buy { color: var(--success); }
-        .info-value.sell { color: var(--primary); }
-        .info-value.stop { color: #d0011b; }
 
-        .disclaimer { font-size: 12px; color: #999; text-align: center; margin-top: 20px; font-style: italic;}
+        .modal-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            font-size: 28px;
+            cursor: pointer;
+            color: #999;
+            line-height: 1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #f5f5f5;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .info-section {
+            margin-bottom: 24px;
+        }
+
+        .info-section h3 {
+            font-size: 15px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .info-item {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .info-item.full-width {
+            grid-column: span 2;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .info-value.buy {
+            color: var(--success);
+        }
+
+        .info-value.sell {
+            color: var(--primary);
+        }
+
+        .info-value.stop {
+            color: #d0011b;
+        }
+
+        .disclaimer {
+            font-size: 11px;
+            color: #999;
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #eee;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: var(--primary);
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">S&P500 Spot Detectors</div>
-        <input type="text" class="search-bar" placeholder="Cari ticker saham (misal: SPY, AAPL)...">
-        <div style="font-size: 14px;">🇮🇩 ID | 🇺🇸 EN</div>
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Cari ticker saham..." id="searchInput">
+        </div>
+        <div class="lang-switch">🇩 ID</div>
     </header>
 
     <div class="categories">
@@ -189,11 +433,11 @@
 
     <div class="container">
         <div class="grid" id="stock-grid">
-            <!-- Kartu akan di-generate oleh JavaScript -->
+            <div class="loading">Memuat data saham...</div>
         </div>
     </div>
 
-    <!-- POPUP MODAL -->
+    <!-- MODAL -->
     <div class="modal-overlay" id="modal">
         <div class="modal">
             <div class="modal-header">
@@ -209,25 +453,28 @@
     <script>
         let allStocks = [];
 
-        // 1. Ambil data dari JSON hasil Python
         async function loadData() {
             try {
                 const response = await fetch('data.json');
+                if (!response.ok) throw new Error('Gagal memuat data');
                 const data = await response.json();
                 allStocks = data.stocks;
                 renderCards(allStocks);
-                
-                // Update waktu di header atau footer jika perlu
-                console.log("Data diupdate pada:", data.last_updated);
             } catch (error) {
-                console.error("Gagal memuat data.json:", error);
-                document.getElementById('stock-grid').innerHTML = "<p>Gagal memuat data. Pastikan data.json ada.</p>";
+                console.error("Error:", error);
+                document.getElementById('stock-grid').innerHTML = 
+                    '<div class="error">Gagal memuat data. Pastikan data.json tersedia.</div>';
             }
         }
 
-        // 2. Render Kartu (Tampilan Shopee)
         function renderCards(stocks) {
             const grid = document.getElementById('stock-grid');
+            
+            if (stocks.length === 0) {
+                grid.innerHTML = '<div class="loading">Tidak ada saham yang ditemukan.</div>';
+                return;
+            }
+
             grid.innerHTML = '';
 
             stocks.forEach(stock => {
@@ -235,12 +482,10 @@
                 card.className = 'card';
                 card.onclick = () => openModal(stock);
 
-                // Tentukan class badge berdasarkan kategori
-                let catClass = 'badge-swing';
-                if(stock.category.includes('Dividen')) catClass = 'badge-dividen';
-
+                let catClass = stock.category.includes('Dividen') ? 'badge-dividen' : 'badge-swing';
+                
                 let accumBadge = '';
-                if(stock.collector_status.is_accumulating) {
+                if (stock.collector_status.is_accumulating) {
                     accumBadge = `<span class="badge badge-accumulation">🔥 COLLECTOR</span>`;
                 }
 
@@ -249,8 +494,10 @@
                     <div class="card-body">
                         <p class="card-title">${stock.name}</p>
                         <div class="card-price">$${stock.current_price}</div>
-                        <span class="badge ${catClass}">${stock.category}</span>
-                        ${accumBadge}
+                        <div class="card-badges">
+                            <span class="badge ${catClass}">${stock.category}</span>
+                            ${accumBadge}
+                        </div>
                         <div class="card-stats">
                             <span>P/E: ${stock.fundamental.pe_ratio}</span>
                             <span>Target: +${stock.action_plan.potential_profit}</span>
@@ -261,12 +508,11 @@
             });
         }
 
-        // 3. Filter Kategori
         function filterCategory(category, btn) {
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
-            if(category === 'all') {
+            if (category === 'all') {
                 renderCards(allStocks);
             } else {
                 const filtered = allStocks.filter(s => s.category === category);
@@ -274,7 +520,6 @@
             }
         }
 
-        // 4. Buka Popup Modal
         function openModal(stock) {
             document.getElementById('modal-title').innerText = `${stock.name} (${stock.ticker})`;
             
@@ -291,7 +536,7 @@
                             <div class="info-label">Dividen Yield</div>
                             <div class="info-value">${stock.fundamental.dividend_yield}</div>
                         </div>
-                        <div class="info-item" style="grid-column: span 2;">
+                        <div class="info-item full-width">
                             <div class="info-label">Kesimpulan Valuasi</div>
                             <div class="info-value">${stock.fundamental.verdict}</div>
                         </div>
@@ -299,7 +544,7 @@
                 </div>
 
                 <div class="info-section">
-                    <h3>🕵️ Deteksi Spot Collector (Bandar)</h3>
+                    <h3>️ Deteksi Spot Collector</h3>
                     <div class="info-grid">
                         <div class="info-item">
                             <div class="info-label">Status Akumulasi</div>
@@ -311,7 +556,7 @@
                             <div class="info-label">Dominasi Volume Beli</div>
                             <div class="info-value">${stock.collector_status.up_vol_pct}%</div>
                         </div>
-                        <div class="info-item" style="grid-column: span 2;">
+                        <div class="info-item full-width">
                             <div class="info-label">Jarak dari Bottom (50 Hari)</div>
                             <div class="info-value">${stock.collector_status.distance_from_low}</div>
                         </div>
@@ -322,43 +567,52 @@
                     <h3>🎯 Area Aksi (Swing Trading)</h3>
                     <div class="info-grid">
                         <div class="info-item">
-                            <div class="info-label">🟢 Area Beli (Buy Zone)</div>
+                            <div class="info-label">🟢 Area Beli</div>
                             <div class="info-value buy">$${stock.action_plan.buy_zone}</div>
                         </div>
                         <div class="info-item">
-                            <div class="info-label">🔴 Target Jual (Take Profit)</div>
+                            <div class="info-label"> Target Jual</div>
                             <div class="info-value sell">$${stock.action_plan.target_sell}</div>
                         </div>
                         <div class="info-item">
-                            <div class="info-label">🛑 Stop Loss (Cut Loss)</div>
+                            <div class="info-label">🛑 Stop Loss</div>
                             <div class="info-value stop">$${stock.action_plan.stop_loss}</div>
                         </div>
                         <div class="info-item">
-                            <div class="info-label">Potensi Profit per Swing</div>
+                            <div class="info-label">Potensi Profit</div>
                             <div class="info-value" style="color: var(--primary);">${stock.action_plan.potential_profit}</div>
                         </div>
                     </div>
                 </div>
                 
-                <p class="disclaimer">*Data diperbarui otomatis. Ini adalah alat bantu analisis, bukan ajakan mutlak untuk membeli/menjual. Selalu lakukan riset mandiri (DYOR).* </p>
+                <p class="disclaimer">*Data diperbarui otomatis. Ini adalah alat bantu analisis, bukan ajakan mutlak untuk membeli/menjual. Selalu lakukan riset mandiri (DYOR).*</p>
             `;
             
             document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
-        // 5. Tutup Popup
         function closeModal() {
             document.getElementById('modal').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
-        // Tutup modal jika klik di luar area modal
         window.onclick = function(event) {
             const modal = document.getElementById('modal');
             if (event.target == modal) closeModal();
         }
 
-        // Inisialisasi
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = allStocks.filter(s => 
+                s.ticker.toLowerCase().includes(searchTerm) || 
+                s.name.toLowerCase().includes(searchTerm)
+            );
+            renderCards(filtered);
+        });
+
         loadData();
     </script>
 </body>
-  </html>
+</html>

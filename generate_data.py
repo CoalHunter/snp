@@ -14,9 +14,14 @@ def analyze_ticker(ticker, category):
 
     current_price = float(hist['Close'].iloc[-1])
     
-    # 1. Fundamental Check
-    forward_pe = info.get('forwardPE', None)
+    # 1. Fundamental Check (DIPERBAIKI)
+    # Yahoo Finance sering tidak kasih forwardPE untuk ETF, kita pakai trailingPE sebagai backup
+    pe_ratio = info.get('forwardPE') or info.get('trailingPE')
+    
+    # FIX BUG DIVIDEN: yfinance kadang kasih desimal (0.03), kadang persen (3.0)
     div_yield = info.get('dividendYield', 0) or 0
+    if div_yield > 1: 
+        div_yield = div_yield / 100  # Jika > 1, berarti sudah dalam bentuk persen, bagi 100
     
     # 2. Accumulation Detection
     recent_14 = hist.tail(14)
@@ -38,19 +43,28 @@ def analyze_ticker(ticker, category):
     
     profit_pct = ((target_sell - buy_zone) / buy_zone) * 100
 
+    # Logika Verdict yang lebih aman
+    if pe_ratio:
+        pe_float = float(pe_ratio)
+        verdict = "MURAH" if pe_float < 18 else "WAJAR" if pe_float < 25 else "MAHAL"
+        pe_display = round(pe_float, 2)
+    else:
+        verdict = "N/A (ETF)"
+        pe_display = "N/A"
+
     return {
         "ticker": ticker,
         "name": info.get('shortName', ticker),
         "category": category,
         "current_price": round(current_price, 2),
         "fundamental": {
-            "pe_ratio": round(float(forward_pe), 2) if forward_pe else "N/A",
-            "dividend_yield": f"{float(div_yield) * 100:.2f}%",
-            "verdict": "MURAH" if (forward_pe and float(forward_pe) < 18) else "WAJAR" if (forward_pe and float(forward_pe) < 25) else "MAHAL"
+            "pe_ratio": pe_display,
+            "dividend_yield": f"{div_yield * 100:.2f}%", # Sekarang akan jadi 3.24% bukan 324%
+            "verdict": verdict
         },
         "collector_status": {
             "is_accumulating": is_accumulating,
-            "status_text": "🔥 AKUMULASI BANDAR" if is_accumulating else " NETRAL",
+            "status_text": "🔥 AKUMULASI BANDAR" if is_accumulating else "⚪ NETRAL",
             "up_vol_pct": round((float(up_vol) / (float(up_vol) + float(down_vol))) * 100, 1) if (up_vol + down_vol) > 0 else 0,
             "distance_from_low": f"{distance_from_low:.1f}%"
         },
@@ -63,24 +77,18 @@ def analyze_ticker(ticker, category):
     }
 
 def main():
-    # Watchlist Lengkap: ~40 ETF Populer AS
     watchlist = [
-        # === DIVIDEN GROWTH ===
         {"ticker": "SCHD", "category": "Dividen Growth"},
         {"ticker": "VIG", "category": "Dividen Growth"},
         {"ticker": "DGRO", "category": "Dividen Growth"},
         {"ticker": "NOBL", "category": "Dividen Growth"},
         {"ticker": "DVY", "category": "Dividen Growth"},
         {"ticker": "HDV", "category": "Dividen Growth"},
-        
-        # === BROAD MARKET (S&P 500 & Total Market) ===
         {"ticker": "SPY", "category": "Broad Market"},
         {"ticker": "VOO", "category": "Broad Market"},
         {"ticker": "IVV", "category": "Broad Market"},
         {"ticker": "RSP", "category": "Broad Market"},
         {"ticker": "VTI", "category": "Broad Market"},
-        
-        # === NASDAQ & TECH ===
         {"ticker": "QQQ", "category": "Tech & Growth"},
         {"ticker": "QQQM", "category": "Tech & Growth"},
         {"ticker": "VGT", "category": "Tech & Growth"},
@@ -88,8 +96,6 @@ def main():
         {"ticker": "SMH", "category": "Tech & Growth"},
         {"ticker": "SOXX", "category": "Tech & Growth"},
         {"ticker": "ARKK", "category": "Tech & Growth"},
-        
-        # === SEKTOR (SPDR Sectors) ===
         {"ticker": "XLF", "category": "Sektor"},
         {"ticker": "XLV", "category": "Sektor"},
         {"ticker": "XLE", "category": "Sektor"},
@@ -100,19 +106,13 @@ def main():
         {"ticker": "XLRE", "category": "Sektor"},
         {"ticker": "XLU", "category": "Sektor"},
         {"ticker": "XLB", "category": "Sektor"},
-        
-        # === SMALL CAP ===
         {"ticker": "IWM", "category": "Small Cap"},
         {"ticker": "VB", "category": "Small Cap"},
-        
-        # === INTERNATIONAL ===
         {"ticker": "VXUS", "category": "International"},
         {"ticker": "VEA", "category": "International"},
         {"ticker": "VWO", "category": "International"},
         {"ticker": "EFA", "category": "International"},
         {"ticker": "EEM", "category": "International"},
-        
-        # === BOND / OBLIGASI ===
         {"ticker": "BND", "category": "Bond"},
         {"ticker": "AGG", "category": "Bond"},
         {"ticker": "TLT", "category": "Bond"},
@@ -120,21 +120,13 @@ def main():
         {"ticker": "LQD", "category": "Bond"},
         {"ticker": "HYG", "category": "Bond"},
         {"ticker": "JNK", "category": "Bond"},
-        
-        # === KOMODITAS & EMAS ===
         {"ticker": "GLD", "category": "Komoditas"},
         {"ticker": "SLV", "category": "Komoditas"},
         {"ticker": "USO", "category": "Komoditas"},
         {"ticker": "DBA", "category": "Komoditas"},
-        
-        # === REITs ===
         {"ticker": "VNQ", "category": "REITs"},
         {"ticker": "IYR", "category": "REITs"},
-        
-        # === CRYPTO ===
         {"ticker": "BITO", "category": "Crypto"},
-        
-        # === VOLATILITY ===
         {"ticker": "UVXY", "category": "Volatility"},
     ]
     
@@ -152,8 +144,7 @@ def main():
             else:
                 print("⚠️ Data kosong")
         except Exception as e:
-            print(f" Error: {e}")
-        # Delay kecil untuk menghindari rate limit Yahoo Finance
+            print(f"❌ Error: {e}")
         time.sleep(0.5)
             
     output = {

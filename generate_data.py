@@ -1,8 +1,8 @@
-# generate_data.py
 import yfinance as yf
 import pandas as pd
 import json
 from datetime import datetime
+import time
 
 def analyze_ticker(ticker, category):
     stock = yf.Ticker(ticker)
@@ -12,13 +12,13 @@ def analyze_ticker(ticker, category):
     if hist.empty:
         return None
 
-    current_price = float(hist['Close'].iloc[-1])  # Konversi ke float native
+    current_price = float(hist['Close'].iloc[-1])
     
     # 1. Fundamental Check
     forward_pe = info.get('forwardPE', None)
     div_yield = info.get('dividendYield', 0) or 0
     
-    # 2. Accumulation Detection (Wyckoff/VSA Simplified)
+    # 2. Accumulation Detection
     recent_14 = hist.tail(14)
     up_vol = recent_14[recent_14['Close'] > recent_14['Open']]['Volume'].sum()
     down_vol = recent_14[recent_14['Close'] <= recent_14['Open']]['Volume'].sum()
@@ -26,10 +26,9 @@ def analyze_ticker(ticker, category):
     low_50 = float(hist.tail(50)['Low'].min())
     distance_from_low = ((current_price - low_50) / low_50) * 100
     
-    # FIX: Konversi hasil perbandingan numpy.bool_ ke bool native Python
     is_accumulating = bool((up_vol > down_vol * 1.2) and (distance_from_low < 10))
     
-    # 3. Action Zones (Swing Target 20% / Year -> ~5-6% per swing)
+    # 3. Action Zones
     support = float(hist.tail(30)['Low'].min())
     resistance = float(hist.tail(30)['High'].max())
     
@@ -50,8 +49,8 @@ def analyze_ticker(ticker, category):
             "verdict": "MURAH" if (forward_pe and float(forward_pe) < 18) else "WAJAR" if (forward_pe and float(forward_pe) < 25) else "MAHAL"
         },
         "collector_status": {
-            "is_accumulating": is_accumulating,  # Sekarang sudah bool native
-            "status_text": " AKUMULASI BANDAR" if is_accumulating else "⚪ NETRAL",
+            "is_accumulating": is_accumulating,
+            "status_text": "🔥 AKUMULASI BANDAR" if is_accumulating else " NETRAL",
             "up_vol_pct": round((float(up_vol) / (float(up_vol) + float(down_vol))) * 100, 1) if (up_vol + down_vol) > 0 else 0,
             "distance_from_low": f"{distance_from_low:.1f}%"
         },
@@ -64,31 +63,109 @@ def analyze_ticker(ticker, category):
     }
 
 def main():
+    # Watchlist Lengkap: ~40 ETF Populer AS
     watchlist = [
-        {"ticker": "SPY", "category": "Swing S&P 500"},
-        {"ticker": "VOO", "category": "Swing S&P 500"},
-        {"ticker": "SCHD", "category": "Dividen Play"},
-        {"ticker": "QQQ", "category": "Swing Tech"}
+        # === DIVIDEN GROWTH ===
+        {"ticker": "SCHD", "category": "Dividen Growth"},
+        {"ticker": "VIG", "category": "Dividen Growth"},
+        {"ticker": "DGRO", "category": "Dividen Growth"},
+        {"ticker": "NOBL", "category": "Dividen Growth"},
+        {"ticker": "DVY", "category": "Dividen Growth"},
+        {"ticker": "HDV", "category": "Dividen Growth"},
+        
+        # === BROAD MARKET (S&P 500 & Total Market) ===
+        {"ticker": "SPY", "category": "Broad Market"},
+        {"ticker": "VOO", "category": "Broad Market"},
+        {"ticker": "IVV", "category": "Broad Market"},
+        {"ticker": "RSP", "category": "Broad Market"},
+        {"ticker": "VTI", "category": "Broad Market"},
+        
+        # === NASDAQ & TECH ===
+        {"ticker": "QQQ", "category": "Tech & Growth"},
+        {"ticker": "QQQM", "category": "Tech & Growth"},
+        {"ticker": "VGT", "category": "Tech & Growth"},
+        {"ticker": "XLK", "category": "Tech & Growth"},
+        {"ticker": "SMH", "category": "Tech & Growth"},
+        {"ticker": "SOXX", "category": "Tech & Growth"},
+        {"ticker": "ARKK", "category": "Tech & Growth"},
+        
+        # === SEKTOR (SPDR Sectors) ===
+        {"ticker": "XLF", "category": "Sektor"},
+        {"ticker": "XLV", "category": "Sektor"},
+        {"ticker": "XLE", "category": "Sektor"},
+        {"ticker": "XLI", "category": "Sektor"},
+        {"ticker": "XLC", "category": "Sektor"},
+        {"ticker": "XLY", "category": "Sektor"},
+        {"ticker": "XLP", "category": "Sektor"},
+        {"ticker": "XLRE", "category": "Sektor"},
+        {"ticker": "XLU", "category": "Sektor"},
+        {"ticker": "XLB", "category": "Sektor"},
+        
+        # === SMALL CAP ===
+        {"ticker": "IWM", "category": "Small Cap"},
+        {"ticker": "VB", "category": "Small Cap"},
+        
+        # === INTERNATIONAL ===
+        {"ticker": "VXUS", "category": "International"},
+        {"ticker": "VEA", "category": "International"},
+        {"ticker": "VWO", "category": "International"},
+        {"ticker": "EFA", "category": "International"},
+        {"ticker": "EEM", "category": "International"},
+        
+        # === BOND / OBLIGASI ===
+        {"ticker": "BND", "category": "Bond"},
+        {"ticker": "AGG", "category": "Bond"},
+        {"ticker": "TLT", "category": "Bond"},
+        {"ticker": "SHY", "category": "Bond"},
+        {"ticker": "LQD", "category": "Bond"},
+        {"ticker": "HYG", "category": "Bond"},
+        {"ticker": "JNK", "category": "Bond"},
+        
+        # === KOMODITAS & EMAS ===
+        {"ticker": "GLD", "category": "Komoditas"},
+        {"ticker": "SLV", "category": "Komoditas"},
+        {"ticker": "USO", "category": "Komoditas"},
+        {"ticker": "DBA", "category": "Komoditas"},
+        
+        # === REITs ===
+        {"ticker": "VNQ", "category": "REITs"},
+        {"ticker": "IYR", "category": "REITs"},
+        
+        # === CRYPTO ===
+        {"ticker": "BITO", "category": "Crypto"},
+        
+        # === VOLATILITY ===
+        {"ticker": "UVXY", "category": "Volatility"},
     ]
     
     results = []
-    print("[*] Memulai analisis pasar...")
+    total = len(watchlist)
+    print(f"[*] Memulai analisis {total} ETF...\n")
     
-    for item in watchlist:
-        print(f"[*] Menganalisis {item['ticker']}...")
-        data = analyze_ticker(item['ticker'], item['category'])
-        if data:
-            results.append(data)
+    for idx, item in enumerate(watchlist, 1):
+        print(f"[{idx}/{total}] Menganalisis {item['ticker']}...", end=" ")
+        try:
+            data = analyze_ticker(item['ticker'], item['category'])
+            if data:
+                results.append(data)
+                print("✅")
+            else:
+                print("⚠️ Data kosong")
+        except Exception as e:
+            print(f" Error: {e}")
+        # Delay kecil untuk menghindari rate limit Yahoo Finance
+        time.sleep(0.5)
             
     output = {
         "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "total_etf": len(results),
         "stocks": results
     }
     
     with open('data.json', 'w') as f:
         json.dump(output, f, indent=4)
         
-    print("[+] Sukses! Data disimpan ke data.json")
+    print(f"\n[+] Sukses! {len(results)} ETF dianalisis. Data disimpan ke data.json")
 
 if __name__ == "__main__":
     main()

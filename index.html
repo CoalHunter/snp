@@ -2,570 +2,680 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name6="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>S&P500 Spot Detectors</title>
 <style>
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
---bg-primary: #0a0a0a;
---bg-secondary: #1a1a1a;
---bg-tertiary: #2a2a2a;
---text-primary: #ffffff;
---text-secondary: #a0a0a0;
---accent: #ff6b35;
---accent-hover: #ff8555;
---success: #00d4aa;
---danger: #ff4757;
---warning: #ffa502;
---border: #333333;
+    --bg-primary: #0f1419;
+    --bg-secondary: #1a2332;
+    --bg-tertiary: #243447;
+    --bg-card: #1e2a3a;
+    --text-primary: #e8e8e8;
+    --text-secondary: #8899a6;
+    --text-muted: #657786;
+    --accent: #5b9bd5;
+    --accent-hover: #7bb3e0;
+    --accent-soft: rgba(91, 155, 213, 0.15);
+    --success: #4ecdc4;
+    --success-soft: rgba(78, 205, 196, 0.15);
+    --warning: #f39c12;
+    --warning-soft: rgba(243, 156, 18, 0.15);
+    --danger: #e74c3c;
+    --danger-soft: rgba(231, 76, 60, 0.15);
+    --border: #2d3e50;
+    --gradient-card: linear-gradient(135deg, #1e2a3a 0%, #243447 100%);
+    --gradient-header: linear-gradient(135deg, #1a2332 0%, #243447 100%);
 }
 
 body {
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-background: var(--bg-primary);
-color: var(--text-primary);
-line-height: 1.6;
-min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
 }
 
 .container {
-max-width: 1400px;
-margin: 0 auto;
-padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
 /* Header */
 .header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 20px 0;
-border-bottom: 1px solid var(--border);
-margin-bottom: 20px;
-flex-wrap: wrap;
-gap: 15px;
+    background: var(--gradient-header);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .logo {
-font-size: 28px;
-font-weight: 700;
-color: var(--accent);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 28px;
 }
 
 .search-box {
-position: relative;
-flex: 1;
-max-width: 400px;
+    position: relative;
+    flex: 1;
+    max-width: 400px;
 }
 
 .search-box input {
-width: 100%;
-padding: 12px 20px;
-background: var(--bg-secondary);
-border: 1px solid var(--border);
-border-radius: 8px;
-color: var(--text-primary);
-font-size: 14px;
-outline: none;
-transition: border-color 0.3s;
+    width: 100%;
+    padding: 10px 15px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
 }
 
 .search-box input:focus {
-border-color: var(--accent);
+    border-color: var(--accent);
 }
 
-.theme-toggle {
-display: flex;
-align-items: center;
-gap: 8px;
-cursor: pointer;
-padding: 10px 15px;
-background: var(--bg-secondary);
-border-radius: 8px;
-border: 1px solid var(--border);
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+.theme-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-secondary);
 }
 
 /* Stats Bar */
 .stats-bar {
-display: flex;
-gap: 30px;
-padding: 15px 0;
-border-bottom: 1px solid var(--border);
-margin-bottom: 20px;
-flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
-.stat-item {
-display: flex;
-gap: 8px;
-align-items: center;
+.stat-card {
+    background: var(--bg-secondary);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.stat-icon {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-soft);
+    border-radius: 8px;
+}
+
+.stat-content {
+    flex: 1;
 }
 
 .stat-label {
-color: var(--text-secondary);
-font-size: 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
 }
 
 .stat-value {
-color: var(--accent);
-font-weight: 600;
-font-size: 14px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--accent);
 }
 
-/* Filter Buttons */
-.filter-container {
-display: flex;
-gap: 10px;
-margin-bottom: 25px;
-overflow-x: auto;
-padding-bottom: 10px;
+/* Filter & Sort */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
-.filter-btn {
-padding: 10px 20px;
-background: var(--bg-secondary);
-border: 1px solid var(--border);
-border-radius: 20px;
-color: var(--text-secondary);
-cursor: pointer;
-white-space: nowrap;
-transition: all 0.3s;
-font-size: 14px;
+.filter-container, .sort-container {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 5px;
 }
 
-.filter-btn:hover {
-border-color: var(--accent);
-color: var(--accent);
+.filter-container::-webkit-scrollbar, .sort-container::-webkit-scrollbar {
+    height: 4px;
 }
 
-.filter-btn.active {
-background: var(--accent);
-border-color: var(--accent);
-color: var(--text-primary);
+.filter-container::-webkit-scrollbar-thumb, .sort-container::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 2px;
 }
 
-/* Sort Container */
-.sort-container {
-display: flex;
-gap: 10px;
-margin-bottom: 25px;
-flex-wrap: wrap;
+.filter-btn, .sort-btn {
+    padding: 8px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s;
+    font-size: 13px;
 }
 
-.sort-btn {
-padding: 8px 16px;
-background: var(--bg-tertiary);
-border: 1px solid var(--border);
-border-radius: 6px;
-color: var(--text-secondary);
-cursor: pointer;
-font-size: 13px;
-transition: all 0.3s;
+.filter-btn:hover, .sort-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
-.sort-btn:hover {
-border-color: var(--accent);
-color: var(--accent);
+.filter-btn.active, .sort-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
 }
 
-.sort-btn.active {
-background: var(--accent);
-border-color: var(--accent);
-color: var(--text-primary);
+/* Special Filter - Ready to Accumulate */
+.filter-btn.special {
+    background: var(--success-soft);
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.filter-btn.special.active {
+    background: var(--success);
+    color: white;
 }
 
 /* Grid */
 .grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
 }
 
 /* Card */
 .card {
-background: var(--bg-secondary);
-border-radius: 12px;
-overflow: hidden;
-border: 1px solid var(--border);
-transition: transform 0.3s, box-shadow 0.3s;
-cursor: pointer;
+    background: var(--gradient-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+    cursor: pointer;
 }
 
 .card:hover {
-transform: translateY(-5px);
-box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(91, 155, 213, 0.15);
+    border-color: var(--accent);
+}
+
+.card.accumulating {
+    border-color: var(--success);
+    box-shadow: 0 4px 16px rgba(78, 205, 196, 0.1);
+}
+
+.card.accumulating:hover {
+    box-shadow: 0 8px 24px rgba(78, 205, 196, 0.2);
 }
 
 .card-header {
-padding: 30px 20px;
-text-align: center;
-background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
-border-bottom: 1px solid var(--border);
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+    border-bottom: 1px solid var(--border);
+    position: relative;
 }
 
 .card-ticker {
-font-size: 42px;
-font-weight: 700;
-color: var(--accent);
-margin-bottom: 10px;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
 }
 
 .card-name {
-font-size: 14px;
-color: var(--text-secondary);
-margin-bottom: 15px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-price {
-font-size: 28px;
-font-weight: 600;
-color: var(--accent);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .card-body {
-padding: 20px;
+    padding: 16px;
 }
 
-.card-category {
-display: inline-block;
-padding: 6px 12px;
-background: var(--bg-tertiary);
-border: 1px solid var(--accent);
-border-radius: 6px;
-color: var(--accent);
-font-size: 12px;
-margin-bottom: 10px;
+.card-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
 }
 
-.card-collector {
-display: inline-flex;
-align-items: center;
-gap: 6px;
-padding: 6px 12px;
-background: var(--danger);
-border-radius: 6px;
-color: var(--text-primary);
-font-size: 12px;
-font-weight: 600;
-margin-bottom: 15px;
-animation: pulse 2s infinite;
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
 }
 
-.card-collector.neutral {
-background: var(--bg-tertiary);
-animation: none;
+.badge-category {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+
+.badge-collector {
+    background: var(--success-soft);
+    color: var(--success);
+    border: 1px solid var(--success);
+    animation: pulse 2s infinite;
+}
+
+.badge-neutral {
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
 }
 
 @keyframes pulse {
-0%, 100% { opacity: 1; }
-50% { opacity: 0.7; }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 .card-stats {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 10px;
-padding-top: 15px;
-border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
 }
 
 .stat-box {
-display: flex;
-flex-direction: column;
-gap: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .stat-box-label {
-font-size: 11px;
-color: var(--text-secondary);
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .stat-box-value {
-font-size: 14px;
-font-weight: 600;
-color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 /* Modal */
 .modal {
-display: none;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(0, 0, 0, 0.8);
-z-index: 1000;
-justify-content: center;
-align-items: center;
-padding: 20px;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 20, 25, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
 }
 
 .modal.active {
-display: flex;
+    display: flex;
 }
 
 .modal-content {
-background: var(--bg-secondary);
-border-radius: 12px;
-max-width: 600px;
-width: 100%;
-max-height: 90vh;
-overflow-y: auto;
-border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .modal-header {
-padding: 20px;
-border-bottom: 1px solid var(--border);
-display: flex;
-justify-content: space-between;
-align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: var(--bg-secondary);
+    z-index: 10;
 }
 
 .modal-title {
-font-size: 24px;
-font-weight: 700;
-color: var(--accent);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
 }
 
 .modal-close {
-background: none;
-border: none;
-color: var(--text-secondary);
-font-size: 24px;
-cursor: pointer;
-padding: 5px 10px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: all 0.3s;
 }
 
 .modal-close:hover {
-color: var(--accent);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
 }
 
 .modal-body {
-padding: 20px;
+    padding: 20px;
 }
 
 .modal-section {
-margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .modal-section-title {
-font-size: 16px;
-font-weight: 600;
-color: var(--accent);
-margin-bottom: 10px;
-padding-bottom: 8px;
-border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .modal-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 
 .modal-item {
-padding: 10px;
-background: var(--bg-tertiary);
-border-radius: 6px;
+    padding: 12px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.modal-item.full-width {
+    grid-column: span 2;
 }
 
 .modal-item-label {
-font-size: 11px;
-color: var(--text-secondary);
-margin-bottom: 4px;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .modal-item-value {
-font-size: 14px;
-font-weight: 600;
-color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .action-zones {
-display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
 }
 
 .action-zone {
-padding: 12px;
-background: var(--bg-tertiary);
-border-radius: 6px;
-text-align: center;
+    padding: 14px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid var(--border);
 }
 
 .action-zone.buy {
-border: 2px solid var(--success);
+    border-color: var(--success);
+    background: var(--success-soft);
 }
 
 .action-zone.target {
-border: 2px solid var(--warning);
+    border-color: var(--warning);
+    background: var(--warning-soft);
 }
 
 .action-zone.stop {
-border: 2px solid var(--danger);
+    border-color: var(--danger);
+    background: var(--danger-soft);
 }
 
 .action-zone-label {
-font-size: 11px;
-color: var(--text-secondary);
-margin-bottom: 4px;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .action-zone-value {
-font-size: 16px;
-font-weight: 700;
-color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
 }
 
-/* Loading */
-.loading {
-text-align: center;
-padding: 60px 20px;
-color: var(--text-secondary);
+/* Loading & Empty State */
+.loading, .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+    grid-column: 1 / -1;
 }
 
 .loading-spinner {
-width: 40px;
-height: 40px;
-border: 3px solid var(--border);
-border-top-color: var(--accent);
-border-radius: 50%;
-animation: spin 1s linear infinite;
-margin: 0 auto 20px;
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
 }
 
 @keyframes spin {
-to { transform: rotate(360deg); }
-}
-
-/* Empty State */
-.empty-state {
-text-align: center;
-padding: 60px 20px;
-color: var(--text-secondary);
+    to { transform: rotate(360deg); }
 }
 
 .empty-state-icon {
-font-size: 48px;
-margin-bottom: 15px;
+    font-size: 48px;
+    margin-bottom: 15px;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-.grid {
-grid-template-columns: 1fr;
-}
-
-.header {
-flex-direction: column;
-align-items: stretch;
-}
-
-.search-box {
-max-width: 100%;
-}
-
-.stats-bar {
-flex-direction: column;
-gap: 10px;
-}
-
-.modal-grid {
-grid-template-columns: 1fr;
-}
-
-.action-zones {
-grid-template-columns: 1fr;
-}
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-top {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-box {
+        max-width: 100%;
+    }
+    
+    .stats-bar {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-zones {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-item.full-width {
+        grid-column: span 1;
+    }
 }
 
 @media (max-width: 480px) {
-.card-ticker {
-font-size: 32px;
-}
-
-.card-price {
-font-size: 24px;
-}
-
-.logo {
-font-size: 22px;
-}
+    .container {
+        padding: 12px;
+    }
+    
+    .card-ticker {
+        font-size: 28px;
+    }
+    
+    .card-price {
+        font-size: 20px;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
 }
 </style>
 </head>
 <body>
 <div class="container">
-<!-- Header -->
-<div class="header">
-<div class="logo">S&P500 Spot Detectors</div>
-<div class="search-box">
-<input type="text" id="searchInput" placeholder="Cari ticker (SCHD, VIG, SPY...)">
-</div>
-<div class="theme-toggle" onclick="toggleTheme()">
-<span>🌙</span>
-<span>Dark</span>
-</div>
-</div>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-top">
+            <div class="logo">
+                <span class="logo-icon">📊</span>
+                <span>S&P500 Spot Detectors</span>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Cari ticker (SCHD, VIG, SPY...)">
+            </div>
+            <div class="theme-badge">
+                <span>🌙</span>
+                <span>Dark Mode</span>
+            </div>
+        </div>
+    </div>
 
-<!-- Stats Bar -->
-<div class="stats-bar">
-<div class="stat-item">
-<span class="stat-label">Total ETF:</span>
-<span class="stat-value" id="totalETF">0</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Akumulasi Aktif:</span>
-<span class="stat-value" id="activeAccumulation">0</span>
-</div>
-<div class="stat-item">
-<span class="stat-label">Update:</span>
-<span class="stat-value" id="lastUpdate">-</span>
-</div>
-</div>
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-content">
+                <div class="stat-label">Total ETF</div>
+                <div class="stat-value" id="totalETF">0</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🔥</div>
+            <div class="stat-content">
+                <div class="stat-label">Akumulasi Aktif</div>
+                <div class="stat-value" id="activeAccumulation">0</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-content">
+                <div class="stat-label">Siap Akumulasi</div>
+                <div class="stat-value" id="readyToAccumulate">0</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">🕐</div>
+            <div class="stat-content">
+                <div class="stat-label">Update (WIB)</div>
+                <div class="stat-value" id="lastUpdate">-</div>
+            </div>
+        </div>
+    </div>
 
-<!-- Filter Buttons -->
-<div class="filter-container" id="filterContainer">
-<button class="filter-btn active" data-category="all">Semua</button>
-</div>
+    <!-- Controls -->
+    <div class="controls">
+        <div class="filter-container" id="filterContainer">
+            <button class="filter-btn active" data-category="all">Semua</button>
+            <button class="filter-btn special" data-category="ready">💰 Siap Akumulasi</button>
+        </div>
+        <div class="sort-container">
+            <button class="sort-btn active" data-sort="default">Default</button>
+            <button class="sort-btn" data-sort="profit">Profit Tertinggi</button>
+            <button class="sort-btn" data-sort="dividend">Dividen Tertinggi</button>
+            <button class="sort-btn" data-sort="distance">Terdekat ke Bottom</button>
+            <button class="sort-btn" data-sort="price-asc">Harga Terendah</button>
+            <button class="sort-btn" data-sort="price-desc">Harga Tertinggi</button>
+        </div>
+    </div>
 
-<!-- Sort Buttons -->
-<div class="sort-container">
-<button class="sort-btn active" data-sort="default">Default</button>
-<button class="sort-btn" data-sort="profit">Potensi Profit Tertinggi</button>
-<button class="sort-btn" data-sort="dividend">Dividen Yield Tertinggi</button>
-<button class="sort-btn" data-sort="distance">Paling Dekat ke Support</button>
-<button class="sort-btn" data-sort="price-asc">Harga Terendah</button>
-<button class="sort-btn" data-sort="price-desc">Harga Tertinggi</button>
-</div>
-
-<!-- Grid -->
-<div class="grid" id="grid">
-<div class="loading">
-<div class="loading-spinner"></div>
-<p>Memuat data...</p>
-</div>
-</div>
+    <!-- Grid -->
+    <div class="grid" id="grid">
+        <div class="loading">
+            <div class="loading-spinner"></div>
+            <p>Memuat data...</p>
+        </div>
+    </div>
 </div>
 
 <!-- Modal -->
 <div class="modal" id="modal">
-<div class="modal-content">
-<div class="modal-header">
-<div class="modal-title" id="modalTitle">-</div>
-<button class=")modal-close" onclick="closeModal()">×</button>
-</div>
-<div class="modal-body" id="modalBody">
-</div>
-</div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title" id="modalTitle">-</div>
+            <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+    </div>
 </div>
 
 <script>
@@ -574,297 +684,314 @@ let filteredData = [];
 let currentCategory = 'all';
 let currentSort = 'default';
 
-// Fetch data dengan timestamp untuk menghindari cache
+// Konversi waktu UTC ke WIB (UTC+7)
+function convertToWIB(utcTime) {
+    if (!utcTime) return '-';
+    const utcDate = new Date(utcTime + 'Z');
+    const wibDate = new Date(utcDate.getTime() + (7 * 60 * 60 * 1000));
+    const year = wibDate.getFullYear();
+    const month = String(wibDate.getMonth() + 1).padStart(2, '0');
+    const day = String(wibDate.getDate()).padStart(2, '0');
+    const hours = String(wibDate.getHours()).padStart(2, '0');
+    const minutes = String(wibDate.getMinutes()).padStart(2, '0');
+    const seconds = String(wibDate.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+// Cek apakah ETF siap diakumulasi
+function isReadyToAccumulate(stock) {
+    const distance = parseFloat(stock.collector_status?.distance_from_low) || 999;
+    const isAccumulating = stock.collector_status?.is_accumulating || false;
+    return distance < 5 || isAccumulating;
+}
+
+// Fetch data
 async function fetchData() {
-try {
-const response = await fetch('data.json?t=' + Date.now());
-const data = await response.json();
-allData = data.stocks || [];
-updateStats(data);
-createFilterButtons();
-renderGrid();
-} catch (error) {
-console.error('Error fetching data:', error);
-document.getElementById('grid').innerHTML = `
-<div class="empty-state">
-<div class="empty-state-icon">⚠️</div>
-<p>Gagal memuat data. Silakan refresh halaman.</p>
-</div>
-`;
-}
+    try {
+        const response = await fetch('data.json?t=' + Date.now());
+        const data = await response.json();
+        allData = data.stocks || [];
+        updateStats(data);
+        createFilterButtons();
+        renderGrid();
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        document.getElementById('grid').innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">️</div>
+                <p>Gagal memuat data. Silakan refresh halaman.</p>
+            </div>
+        `;
+    }
 }
 
-// Update stats bar
+// Update stats
 function updateStats(data) {
-document.getElementById('totalETF').textContent = data.total_etf || allData.length;
-const activeCount = allData.filter(s => s.collector_status?.is_accumulating).length;
-document.getElementById('activeAccumulation').textContent = activeCount;
-document.getElementById('lastUpdate').textContent = data.last_updated || '-';
+    document.getElementById('totalETF').textContent = data.total_etf || allData.length;
+    const activeCount = allData.filter(s => s.collector_status?.is_accumulating).length;
+    document.getElementById('activeAccumulation').textContent = activeCount;
+    const readyCount = allData.filter(s => isReadyToAccumulate(s)).length;
+    document.getElementById('readyToAccumulate').textContent = readyCount;
+    document.getElementById('lastUpdate').textContent = convertToWIB(data.last_updated);
 }
 
-// Create filter buttons dari kategori yang ada
+// Create filter buttons
 function createFilterButtons() {
-const categories = [...new Set(allData.map(s => s.category).filter(Boolean))];
-const container = document.getElementById('filterContainer');
-
-categories.forEach(cat => {
-const btn = document.createElement('button');
-btn.className = 'filter-btn';
-btn.dataset.category = cat;
-btn.textContent = cat;
-btn.onclick = () => setCategory(cat);
-container.appendChild(btn);
-});
-
-// Add event listeners untuk semua filter buttons
-document.querySelectorAll('.filter-btn').forEach(btn => {
-btn.onclick = () => setCategory(btn.dataset.category);
-});
+    const categories = [...new Set(allData.map(s => s.category).filter(Boolean))];
+    const container = document.getElementById('filterContainer');
+    
+    categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.dataset.category = cat;
+        btn.textContent = cat;
+        btn.onclick = () => setCategory(cat);
+        container.appendChild(btn);
+    });
 }
 
-// Set category filter
+// Set category
 function setCategory(category) {
-currentCategory = category;
-document.querySelectorAll('.filter-btn').forEach(btn => {
-btn.classList.toggle('active', btn.dataset.category === category);
-});
-applyFilters();
+    currentCategory = category;
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.category === category);
+    });
+    applyFilters();
 }
 
 // Set sort
 function setSort(sort) {
-currentSort = sort;
-document.querySelectorAll('.sort-btn').forEach(btn => {
-btn.classList.toggle('active', btn.dataset.sort === sort);
-});
-applyFilters();
+    currentSort = sort;
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.sort === sort);
+    });
+    applyFilters();
 }
 
-// Apply filters dan sort
+// Apply filters
 function applyFilters() {
-const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-
-filteredData = allData.filter(stock => {
-const matchCategory = currentCategory === 'all' || stock.category === currentCategory;
-const matchSearch = stock.ticker?.toLowerCase().includes(searchTerm) ||
-stock.name?.toLowerCase().includes(searchTerm);
-return matchCategory && matchSearch;
-});
-
-// Apply sorting
-switch (currentSort) {
-case 'profit':
-filteredData.sort((a, b) => {
-const profitA = parseFloat(a.action_plan?.potential_profit) || 0;
-const profitB = parseFloat(b.action_plan?.potential_profit) || 0;
-return profitB - profitA;
-});
-break;
-case 'dividend':
-filteredData.sort((a, b) => {
-const divA = parseFloat(a.fundamental?.dividend_yield) || 0;
-const divB = parseFloat(b.fundamental?.dividend_yield) || 0;
-return divB - divA;
-});
-break;
-case 'distance':
-filteredData.sort((a, b) => {
-const distA = parseFloat(a.collector_status?.distance_from_low) || 0;
-const distB = parseFloat(b.collector_status?.distance_from_low) || 0;
-return distA - distB;
-});
-break;
-case 'price-asc':
-filteredData.sort((a, b) => (a.current_price || 0) - (b.current_price || 0));
-break;
-case 'price-desc':
-filteredData.sort((a, b) => (b.current_price || 0) - (a.current_price || 0));
-break;
-}
-
-renderGrid();
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    
+    filteredData = allData.filter(stock => {
+        const matchCategory = currentCategory === 'all' || 
+            (currentCategory === 'ready' && isReadyToAccumulate(stock)) ||
+            stock.category === currentCategory;
+        const matchSearch = stock.ticker?.toLowerCase().includes(searchTerm) ||
+            stock.name?.toLowerCase().includes(searchTerm);
+        return matchCategory && matchSearch;
+    });
+    
+    // Apply sorting
+    switch (currentSort) {
+        case 'profit':
+            filteredData.sort((a, b) => {
+                const profitA = parseFloat(a.action_plan?.potential_profit) || 0;
+                const profitB = parseFloat(b.action_plan?.potential_profit) || 0;
+                return profitB - profitA;
+            });
+            break;
+        case 'dividend':
+            filteredData.sort((a, b) => {
+                const divA = parseFloat(a.fundamental?.dividend_yield) || 0;
+                const divB = parseFloat(b.fundamental?.dividend_yield) || 0;
+                return divB - divA;
+            });
+            break;
+        case 'distance':
+            filteredData.sort((a, b) => {
+                const distA = parseFloat(a.collector_status?.distance_from_low) || 0;
+                const distB = parseFloat(b.collector_status?.distance_from_low) || 0;
+                return distA - distB;
+            });
+            break;
+        case 'price-asc':
+            filteredData.sort((a, b) => (a.current_price || 0) - (b.current_price || 0));
+            break;
+        case 'price-desc':
+            filteredData.sort((a, b) => (b.current_price || 0) - (a.current_price || 0));
+            break;
+    }
+    
+    renderGrid();
 }
 
 // Render grid
 function renderGrid() {
-const grid = document.getElementById('grid');
-
-if (filteredData.length === 0) {
-grid.innerHTML = `
-<div class="empty-state">
-<div class="empty-state-icon"></div>
-<p>Tidak ada data yang cocok dengan filter Anda.</p>
-</div>
-`;
-return;
-}
-
-grid.innerHTML = filteredData.map(stock => {
-const isAccumulating = stock.collector_status?.is_accumulating;
-const dividendYield = stock.fundamental?.dividend_yield || 'N/A';
-const peRatio = stock.fundamental?.pe_ratio || 'N/A';
-const potentialProfit = stock.action_plan?.potential_profit || 'N/A';
-
-return `
-<div class="card" onclick="openModal('${stock.ticker}')">
-<div class="card-header">
-<div class="card-ticker">${stock.ticker}</div>
-<div class="card-name">${stock.name || '-'}</div>
-<div class="card-price">$${stock.current_price?.toFixed(2) || 'N/A'}</div>
-</div>
-<div class="card-body">
-<div class="card-category">${stock.category || '-'}</div>
-<div class="card-collector ${isAccumulating ? '' : 'neutral'}">
-${isAccumulating ? '🔥' : '⚪'} ${isAccumulating ? 'COLLECTOR' : 'NETRAL'}
-</div>
-<div class="card-stats">
-<div class="stat-box">
-<span class="stat-box-label">P/E Ratio</span>
-<span class="stat-box-value">${peRatio}</span>
-</div>
-<div class="stat-box">
-<span class="stat-box-label">Dividen Yield</span>
-<span class="stat-box-value">${dividendYield}</span>
-</div>
-<div class="stat-box">
-<span class="stat-box-label">Up Volume %</span>
-<span class="stat-box-value">${stock.collector_status?.up_vol_pct || 0}%</span>
-</div>
-<div class="stat-box">
-<span class="stat-box-label">Target Profit</span>
-<span class="stat-box-value">${potentialProfit}</span>
-</div>
-</div>
-</div>
-</div>
-`;
-}).join('');
+    const grid = document.getElementById('grid');
+    
+    if (filteredData.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">🔍</div>
+                <p>Tidak ada data yang cocok dengan filter Anda.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    grid.innerHTML = filteredData.map(stock => {
+        const isAccumulating = stock.collector_status?.is_accumulating;
+        const isReady = isReadyToAccumulate(stock);
+        const dividendYield = stock.fundamental?.dividend_yield || 'N/A';
+        const peRatio = stock.fundamental?.pe_ratio || 'N/A';
+        const potentialProfit = stock.action_plan?.potential_profit || 'N/A';
+        const distanceFromLow = stock.collector_status?.distance_from_low || 'N/A';
+        
+        return `
+            <div class="card ${isReady ? 'accumulating' : ''}" onclick="openModal('${stock.ticker}')">
+                <div class="card-header">
+                    <div class="card-ticker">${stock.ticker}</div>
+                    <div class="card-name">${stock.name || '-'}</div>
+                    <div class="card-price">$${stock.current_price?.toFixed(2) || 'N/A'}</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-badges">
+                        <span class="badge badge-category">${stock.category || '-'}</span>
+                        ${isAccumulating ? 
+                            '<span class="badge badge-collector">🔥 Akumulasi</span>' : 
+                            '<span class="badge badge-neutral">⚪ Netral</span>'}
+                        ${isReady && !isAccumulating ? '<span class="badge badge-collector">💰 Siap</span>' : ''}
+                    </div>
+                    <div class="card-stats">
+                        <div class="stat-box">
+                            <span class="stat-box-label">P/E Ratio</span>
+                            <span class="stat-box-value">${peRatio}</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-box-label">Dividen</span>
+                            <span class="stat-box-value">${dividendYield}</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-box-label">Up Volume</span>
+                            <span class="stat-box-value">${stock.collector_status?.up_vol_pct || 0}%</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-box-label">Target</span>
+                            <span class="stat-box-value">${potentialProfit}</span>
+                        </div>
+                        <div class="stat-box" style="grid-column: span 2;">
+                            <span class="stat-box-label">Jarak dari Bottom</span>
+                            <span class="stat-box-value">${distanceFromLow}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 
 // Open modal
 function openModal(ticker) {
-const stock = allData.find(s => s.ticker === ticker);
-if (!stock) return;
-
-document.getElementById('modalTitle').textContent = stock.ticker;
-
-const modalBody = document.getElementById('modalBody');
-modalBody.innerHTML = `
-<div class="modal-section">
-<div class="modal-section-title">Informasi Dasar</div>
-<div class="modal-grid">
-<div class="modal-item">
-<div class="modal-item-label">Nama</div>
-<div class="modal-item-value">${stock.name || '-'}</div>
-</div>
-<div class="modal-item">
-<div class="modal-item-label">Kategori</div>
-<div class="modal-item-value">${stock.category || '-'}</div>
-</div>
-<div class="modal-item">
-<div class="modal-item-label">Harga Saat Ini</div>
-<div class="modal-item-value">$${stock.current_price?.toFixed(2) || 'N/A'}</div>
-</div>
-<div class="modal-item">
-<div class="modal-item-label">Status</div>
-<div class="modal-item-value">${stock.collector_status?.is_accumulating ? '🔥 Akumulasi' : '⚪ Netral'}</div>
-</div>
-</div>
-</div>
-
-<div class="modal-section">
-<div class="modal-section-title">Fundamental</div>
-<div class="modal-grid">
-<div class="modal-item">
-<div class="modal-item-label">P/E Ratio</div>
-<div class="modal-item-value">${stock.fundamental?.pe_ratio || 'N/A'}</div>
-</div>
-<div class="modal-item">
-<div class="modal-item-label">Dividen Yield</div>
-<div class="modal-item-value">${stock.fundamental?.dividend_yield || 'N/A'}</div>
-</div>
-<div class="modal-item">
-<div class="modal-item-label">Verdict</div>
-<div class="modal-item-value">${stock.fundamental?.verdict || 'N/A'}</div>
-</div>
-<div class="modal-item">
-<div class="modal-item-label">Up Volume %</div>
-<div class="modal-item-value">${stock.collector_status?.up_vol_pct || 0}%</div>
-</div>
-</div>
-</div>
-
-<div class="modal-section">
-<div class="modal-section-title">Collector Status</div>
-<div class="modal-grid">
-<div class="modal-item">
-<div class="modal-item-label">Status</div>
-<div class="modal-item-value">${stock.collector_status?.status_text || '-'}</div>
-</div>
-<div class="modal-item">
-<div class="modal-item-label">Distance from Low</div>
-<div class="modal-item-value">${stock.collector_status?.distance_from_low || 'N/A'}</div>
-</div>
-</div>
-</div>
-
-<div class="modal-section">
-<div class="modal-section-title">Action Plan</div>
-<div class="action-zones">
-<div class="action-zone buy">
-<div class="action-zone-label">Buy Zone</div>
-<div class="action-zone-value">$${stock.action_plan?.buy_zone?.toFixed(2) || 'N/A'}</div>
-</div>
-<div class="action-zone target">
-<div class="action-zone-label">Target Sell</div>
-<div class="action-zone-value">$${stock.action_plan?.target_sell?.toFixed(2) || 'N/A'}</div>
-</div>
-<div class="action-zone stop">
-<div class="action-zone-label">Stop Loss</div>
-<div class="action-zone-value">$${stock.action_plan?.stop_loss?.toFixed(2) || 'N/A'}</div>
-</div>
-</div>
-<div class="modal-grid" style="margin-top: 10px;">
-<div class="modal-item">
-<div class="modal-item-label">Potensi Profit</div>
-<div class="modal-item-value">${stock.action_plan?.potential_profit || 'N/A'}</div>
-</div>
-</div>
-</div>
-`;
-
-document.getElementById('modal').classList.add('active');
+    const stock = allData.find(s => s.ticker === ticker);
+    if (!stock) return;
+    
+    document.getElementById('modalTitle').textContent = `${stock.ticker} - ${stock.name || ''}`;
+    
+    const isReady = isReadyToAccumulate(stock);
+    
+    document.getElementById('modalBody').innerHTML = `
+        ${isReady ? '<div style="background: var(--success-soft); border: 1px solid var(--success); padding: 12px; border-radius: 8px; margin-bottom: 20px; color: var(--success); font-weight: 600; text-align: center;">💰 ETF ini siap diakumulasi - Harga dekat bottom atau terdeteksi akumulasi</div>' : ''}
+        
+        <div class="modal-section">
+            <div class="modal-section-title">📊 Informasi Dasar</div>
+            <div class="modal-grid">
+                <div class="modal-item">
+                    <div class="modal-item-label">Kategori</div>
+                    <div class="modal-item-value">${stock.category || '-'}</div>
+                </div>
+                <div class="modal-item">
+                    <div class="modal-item-label">Harga Saat Ini</div>
+                    <div class="modal-item-value">$${stock.current_price?.toFixed(2) || 'N/A'}</div>
+                </div>
+                <div class="modal-item">
+                    <div class="modal-item-label">Status Akumulasi</div>
+                    <div class="modal-item-value">${stock.collector_status?.is_accumulating ? '🔥 Aktif' : '⚪ Netral'}</div>
+                </div>
+                <div class="modal-item">
+                    <div class="modal-item-label">Up Volume %</div>
+                    <div class="modal-item-value">${stock.collector_status?.up_vol_pct || 0}%</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-section">
+            <div class="modal-section-title">💹 Fundamental</div>
+            <div class="modal-grid">
+                <div class="modal-item">
+                    <div class="modal-item-label">P/E Ratio</div>
+                    <div class="modal-item-value">${stock.fundamental?.pe_ratio || 'N/A'}</div>
+                </div>
+                <div class="modal-item">
+                    <div class="modal-item-label">Dividen Yield</div>
+                    <div class="modal-item-value">${stock.fundamental?.dividend_yield || 'N/A'}</div>
+                </div>
+                <div class="modal-item full-width">
+                    <div class="modal-item-label">Kesimpulan Valuasi</div>
+                    <div class="modal-item-value">${stock.fundamental?.verdict || 'N/A'}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-section">
+            <div class="modal-section-title">️ Collector Status</div>
+            <div class="modal-grid">
+                <div class="modal-item">
+                    <div class="modal-item-label">Status</div>
+                    <div class="modal-item-value">${stock.collector_status?.status_text || '-'}</div>
+                </div>
+                <div class="modal-item">
+                    <div class="modal-item-label">Jarak dari Bottom (50 Hari)</div>
+                    <div class="modal-item-value">${stock.collector_status?.distance_from_low || 'N/A'}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-section">
+            <div class="modal-section-title">🎯 Action Plan</div>
+            <div class="action-zones">
+                <div class="action-zone buy">
+                    <div class="action-zone-label">Buy Zone</div>
+                    <div class="action-zone-value">$${stock.action_plan?.buy_zone?.toFixed(2) || 'N/A'}</div>
+                </div>
+                <div class="action-zone target">
+                    <div class="action-zone-label">Target Sell</div>
+                    <div class="action-zone-value">$${stock.action_plan?.target_sell?.toFixed(2) || 'N/A'}</div>
+                </div>
+                <div class="action-zone stop">
+                    <div class="action-zone-label">Stop Loss</div>
+                    <div class="action-zone-value">$${stock.action_plan?.stop_loss?.toFixed(2) || 'N/A'}</div>
+                </div>
+            </div>
+            <div class="modal-grid" style="margin-top: 10px;">
+                <div class="modal-item full-width">
+                    <div class="modal-item-label">Potensi Profit</div>
+                    <div class="modal-item-value" style="color: var(--accent); font-size: 18px;">${stock.action_plan?.potential_profit || 'N/A'}</div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('modal').classList.add('active');
 }
 
 // Close modal
 function closeModal() {
-document.getElementById('modal').classList.remove('active');
-}
-
-// Close modal saat klik di luar
-document.getElementById('modal').addEventListener('click', (e) => {
-if (e.target.id === 'modal') {
-closeModal();
-}
-});
-
-// Toggle theme (placeholder)
-function toggleTheme() {
-alert('Fitur tema akan segera hadir!');
+    document.getElementById('modal').classList.remove('active');
 }
 
 // Event listeners
+document.getElementById('modal').addEventListener('click', (e) => {
+    if (e.target.id === 'modal') closeModal();
+});
+
 document.getElementById('searchInput').addEventListener('input', applyFilters);
 
 document.querySelectorAll('.sort-btn').forEach(btn => {
-btn.onclick = () => setSort(btn.dataset.sort);
+    btn.onclick = () => setSort(btn.dataset.sort);
 });
 
-// Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
-if (e.key === 'Escape') {
-closeModal();
-}
+    if (e.key === 'Escape') closeModal();
 });
 
 // Initialize

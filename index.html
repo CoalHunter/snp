@@ -5,505 +5,257 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S&P500 Spot Detectors</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #ee4d2d;
-            --primary-dark: #d73211;
-            --secondary: #fff;
-            --bg: #f5f5f5;
-            --text: #222;
-            --text-light: #757575;
-            --success: #26aa99;
-            --warning: #ffcd00;
-            --card-bg: #fff;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-card: #1a1a1a;
+            --bg-modal: #1e1e1e;
+            --bg-input: #2a2a2a;
+            --border: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #ff6b35;
+            --accent-hover: #ff8555;
+            --success: #00d4aa;
+            --danger: #ff4757;
+            --warning: #ffa502;
+        }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background-color: var(--bg-primary); 
+            color: var(--text-primary); 
+            line-height: 1.5; 
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.5;
+        /* HEADER */
+        header { 
+            background: var(--bg-secondary); 
+            padding: 12px 16px; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            border-bottom: 1px solid var(--border);
         }
+        .logo { 
+            font-size: 18px; 
+            font-weight: 700; 
+            white-space: nowrap; 
+            flex-shrink: 0; 
+            color: var(--accent);
+        }
+        .search-container { flex: 1; min-width: 0; }
+        .search-bar { 
+            width: 100%; 
+            padding: 8px 12px; 
+            border: 1px solid var(--border); 
+            border-radius: 6px; 
+            outline: none; 
+            font-size: 14px; 
+            background: var(--bg-input);
+            color: var(--text-primary);
+        }
+        .search-bar::placeholder { color: var(--text-muted); }
+        .search-bar:focus { border-color: var(--accent); }
+        .lang-switch { font-size: 12px; white-space: nowrap; flex-shrink: 0; color: var(--text-secondary); }
 
-        /* HEADER - Diperbaiki */
-        header {
-            background: linear-gradient(135deg, #f53d2d 0%, #ff6633 100%);
-            padding: 12px 16px;
-            color: white;
+        /* STATS BAR */
+        .stats-bar {
+            background: var(--bg-secondary);
+            padding: 10px 16px;
             display: flex;
-            align-items: center;
-            gap: 12px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .logo {
-            font-size: 18px;
-            font-weight: 700;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        .search-container {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .search-bar {
-            width: 100%;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            outline: none;
-            font-size: 14px;
-            background: white;
-        }
-
-        .lang-switch {
-            font-size: 12px;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        /* CATEGORIES - Diperbaiki */
-        .categories {
-            background: white;
-            padding: 12px 16px;
-            display: flex;
-            gap: 8px;
+            gap: 16px;
             overflow-x: auto;
-            border-bottom: 1px solid #e0e0e0;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .categories::-webkit-scrollbar {
-            display: none;
-        }
-
-        .cat-btn {
-            padding: 8px 16px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            background: white;
-            cursor: pointer;
-            white-space: nowrap;
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-
-        .cat-btn:hover {
-            background: #fff5f3;
-            border-color: var(--primary);
-        }
-
-        .cat-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        /* GRID - Diperbaiki */
-        .container {
-            padding: 16px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 12px;
-        }
-
-        @media (max-width: 480px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 16px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        /* CARD - Diperbaiki */
-        .card {
-            background: var(--card-bg);
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid transparent;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-color: var(--primary);
-        }
-
-        .card-img {
-            height: 120px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--primary);
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .card-body {
-            padding: 10px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-title {
+            border-bottom: 1px solid var(--border);
             font-size: 12px;
-            margin: 0 0 6px 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: var(--text);
-            line-height: 1.3;
         }
+        .stats-bar::-webkit-scrollbar { display: none; }
+        .stat-item { white-space: nowrap; color: var(--text-secondary); }
+        .stat-item span { color: var(--accent); font-weight: 600; }
 
-        .card-price {
-            color: var(--primary);
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 8px;
+        /* CATEGORIES */
+        .categories { 
+            background: var(--bg-secondary); 
+            padding: 12px 16px; 
+            display: flex; 
+            gap: 8px; 
+            overflow-x: auto; 
+            border-bottom: 1px solid var(--border); 
+            -webkit-overflow-scrolling: touch; 
         }
-
-        .card-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-bottom: 8px;
-            min-height: 24px;
+        .categories::-webkit-scrollbar { display: none; }
+        .cat-btn { 
+            padding: 8px 16px; 
+            border: 1px solid var(--border); 
+            border-radius: 20px; 
+            background: var(--bg-card); 
+            color: var(--text-secondary);
+            cursor: pointer; 
+            white-space: nowrap; 
+            font-size: 13px; 
+            font-weight: 500; 
+            transition: all 0.2s; 
+            flex-shrink: 0; 
         }
+        .cat-btn:hover { border-color: var(--accent); color: var(--text-primary); }
+        .cat-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 3px;
-            font-size: 10px;
-            font-weight: 600;
-            line-height: 1.2;
+        /* GRID */
+        .container { padding: 16px; max-width: 1400px; margin: 0 auto; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        @media (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+        @media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 1280px) { .grid { grid-template-columns: repeat(5, 1fr); } }
+
+        /* CARD */
+        .card { 
+            background: var(--bg-card); 
+            border-radius: 8px; 
+            border: 1px solid var(--border);
+            overflow: hidden; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            display: flex; 
+            flex-direction: column; 
         }
-
-        .badge-swing {
-            background: #fff5f3;
-            color: var(--primary);
-            border: 1px solid var(--primary);
+        .card:hover { 
+            transform: translateY(-2px); 
+            border-color: var(--accent); 
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
         }
-
-        .badge-dividen {
-            background: #e6f7f2;
-            color: var(--success);
-            border: 1px solid var(--success);
+        .card-img { 
+            height: 100px; 
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 28px; 
+            font-weight: 700; 
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
         }
+        .card-body { padding: 10px; flex: 1; display: flex; flex-direction: column; }
+        .card-title { font-size: 12px; margin: 0 0 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-primary); }
+        .card-price { color: var(--accent); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .card-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; min-height: 24px; }
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 3px; font-size: 10px; font-weight: 600; }
+        .badge-category { background: rgba(255, 107, 53, 0.15); color: var(--accent); border: 1px solid var(--accent); }
+        .badge-accumulation { background: var(--danger); color: white; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .card-stats { font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border); }
 
-        .badge-accumulation {
-            background: #ff0000;
-            color: white;
-            animation: pulse 1.5s infinite;
-        }
+        /* MODAL */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: flex-end; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: var(--bg-modal); width: 100%; max-width: 600px; max-height: 90vh; border-radius: 16px 16px 0 0; overflow-y: auto; animation: slideUp 0.3s ease; border: 1px solid var(--border); }
+        @media (min-width: 768px) { .modal-overlay { align-items: center; padding: 20px; } .modal { border-radius: 12px; } }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .modal-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: var(--bg-modal); z-index: 10; }
+        .modal-header h2 { font-size: 18px; font-weight: 700; }
+        .modal-close { font-size: 28px; cursor: pointer; color: var(--text-muted); }
+        .modal-close:hover { color: var(--text-primary); }
+        .modal-body { padding: 20px; }
+        .info-section { margin-bottom: 24px; }
+        .info-section h3 { font-size: 15px; color: var(--accent); margin-bottom: 12px; font-weight: 700; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .info-item { background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
+        .info-item.full-width { grid-column: span 2; }
+        .info-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; }
+        .info-value { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+        .info-value.buy { color: var(--success); }
+        .info-value.sell { color: var(--accent); }
+        .info-value.stop { color: var(--danger); }
+        .disclaimer { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); font-style: italic; }
+        .loading, .error { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; grid-column: 1 / -1; }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .card-stats {
-            font-size: 11px;
-            color: var(--text-light);
-            display: flex;
-            justify-content: space-between;
-            margin-top: auto;
-            padding-top: 8px;
-            border-top: 1px solid #f5f5f5;
-        }
-
-        /* MODAL - Diperbaiki */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 1000;
-            justify-content: center;
-            align-items: flex-end;
-            padding: 0;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            background: white;
-            width: 100%;
-            max-width: 600px;
-            max-height: 90vh;
-            border-radius: 16px 16px 0 0;
-            overflow-y: auto;
-            position: relative;
-            animation: slideUp 0.3s ease;
-        }
-
-        @media (min-width: 768px) {
-            .modal-overlay {
-                align-items: center;
-                padding: 20px;
-            }
-
-            .modal {
-                border-radius: 12px;
-                max-height: 85vh;
-            }
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        .modal-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 10;
-        }
-
-        .modal-header h2 {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .modal-close {
-            font-size: 28px;
-            cursor: pointer;
-            color: #999;
-            line-height: 1;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: background 0.2s;
-        }
-
-        .modal-close:hover {
-            background: #f5f5f5;
-        }
-
-        .modal-body {
-            padding: 20px;
-        }
-
-        .info-section {
-            margin-bottom: 24px;
-        }
-
-        .info-section h3 {
-            font-size: 15px;
-            color: var(--primary);
-            margin-bottom: 12px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .info-item {
-            background: #f9f9f9;
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        .info-item.full-width {
-            grid-column: span 2;
-        }
-
-        .info-label {
-            font-size: 11px;
-            color: var(--text-light);
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .info-value {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .info-value.buy {
-            color: var(--success);
-        }
-
-        .info-value.sell {
-            color: var(--primary);
-        }
-
-        .info-value.stop {
-            color: #d0011b;
-        }
-
-        .disclaimer {
-            font-size: 11px;
-            color: #999;
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid #eee;
-            font-style: italic;
-            line-height: 1.4;
-        }
-
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-light);
-            font-size: 14px;
-        }
-
-        .error {
-            text-align: center;
-            padding: 40px;
-            color: var(--primary);
-            font-size: 14px;
-        }
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
     </style>
 </head>
 <body>
-
     <header>
         <div class="logo">S&P500 Spot Detectors</div>
-        <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Cari ticker saham..." id="searchInput">
-        </div>
-        <div class="lang-switch">🇩 ID</div>
+        <div class="search-container"><input type="text" class="search-bar" placeholder="Cari ticker (SPY, SCHD, QQQ...)" id="searchInput"></div>
+        <div class="lang-switch">🌙 Dark</div>
     </header>
+
+    <div class="stats-bar" id="stats-bar">
+        <div class="stat-item">Total ETF: <span id="stat-total">-</span></div>
+        <div class="stat-item">Akumulasi Aktif: <span id="stat-accumulating">-</span></div>
+        <div class="stat-item">Update: <span id="stat-updated">-</span></div>
+    </div>
 
     <div class="categories">
         <button class="cat-btn active" onclick="filterCategory('all', this)">Semua</button>
-        <button class="cat-btn" onclick="filterCategory('Swing S&P 500', this)">Swing S&P 500</button>
-        <button class="cat-btn" onclick="filterCategory('Dividen Play', this)">Dividen Play</button>
-        <button class="cat-btn" onclick="filterCategory('Swing Tech', this)">Swing Tech</button>
+        <button class="cat-btn" onclick="filterCategory('Dividen Growth', this)">Dividen Growth</button>
+        <button class="cat-btn" onclick="filterCategory('Broad Market', this)">Broad Market</button>
+        <button class="cat-btn" onclick="filterCategory('Tech & Growth', this)">Tech & Growth</button>
+        <button class="cat-btn" onclick="filterCategory('Sektor', this)">Sektor</button>
+        <button class="cat-btn" onclick="filterCategory('Small Cap', this)">Small Cap</button>
+        <button class="cat-btn" onclick="filterCategory('International', this)">International</button>
+        <button class="cat-btn" onclick="filterCategory('Bond', this)">Bond</button>
+        <button class="cat-btn" onclick="filterCategory('Komoditas', this)">Komoditas</button>
+        <button class="cat-btn" onclick="filterCategory('REITs', this)">REITs</button>
+        <button class="cat-btn" onclick="filterCategory('Crypto', this)">Crypto</button>
     </div>
 
     <div class="container">
-        <div class="grid" id="stock-grid">
-            <div class="loading">Memuat data saham...</div>
-        </div>
+        <div class="grid" id="stock-grid"><div class="loading">Memuat data ETF...</div></div>
     </div>
 
-    <!-- MODAL -->
     <div class="modal-overlay" id="modal">
         <div class="modal">
-            <div class="modal-header">
-                <h2 id="modal-title">Detail Saham</h2>
-                <span class="modal-close" onclick="closeModal()">&times;</span>
-            </div>
-            <div class="modal-body" id="modal-body">
-                <!-- Konten dinamis -->
-            </div>
+            <div class="modal-header"><h2 id="modal-title">Detail ETF</h2><span class="modal-close" onclick="closeModal()">&times;</span></div>
+            <div class="modal-body" id="modal-body"></div>
         </div>
     </div>
 
     <script>
         let allStocks = [];
-
         async function loadData() {
             try {
                 const response = await fetch('data.json');
                 if (!response.ok) throw new Error('Gagal memuat data');
                 const data = await response.json();
                 allStocks = data.stocks;
+                updateStats(data);
                 renderCards(allStocks);
             } catch (error) {
-                console.error("Error:", error);
-                document.getElementById('stock-grid').innerHTML = 
-                    '<div class="error">Gagal memuat data. Pastikan data.json tersedia.</div>';
+                document.getElementById('stock-grid').innerHTML = '<div class="error">Gagal memuat data. Pastikan data.json tersedia.</div>';
             }
+        }
+
+        function updateStats(data) {
+            document.getElementById('stat-total').innerText = data.total_etf || data.stocks.length;
+            const accumulating = data.stocks.filter(s => s.collector_status.is_accumulating).length;
+            document.getElementById('stat-accumulating').innerText = accumulating;
+            document.getElementById('stat-updated').innerText = data.last_updated || '-';
         }
 
         function renderCards(stocks) {
             const grid = document.getElementById('stock-grid');
-            
-            if (stocks.length === 0) {
-                grid.innerHTML = '<div class="loading">Tidak ada saham yang ditemukan.</div>';
-                return;
-            }
-
+            if (stocks.length === 0) { grid.innerHTML = '<div class="loading">Tidak ada ETF ditemukan.</div>'; return; }
             grid.innerHTML = '';
-
             stocks.forEach(stock => {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.onclick = () => openModal(stock);
-
-                let catClass = stock.category.includes('Dividen') ? 'badge-dividen' : 'badge-swing';
-                
-                let accumBadge = '';
-                if (stock.collector_status.is_accumulating) {
-                    accumBadge = `<span class="badge badge-accumulation">🔥 COLLECTOR</span>`;
-                }
-
+                let accumBadge = stock.collector_status.is_accumulating ? '<span class="badge badge-accumulation">🔥 COLLECTOR</span>' : '';
                 card.innerHTML = `
                     <div class="card-img">${stock.ticker}</div>
                     <div class="card-body">
                         <p class="card-title">${stock.name}</p>
                         <div class="card-price">$${stock.current_price}</div>
-                        <div class="card-badges">
-                            <span class="badge ${catClass}">${stock.category}</span>
-                            ${accumBadge}
-                        </div>
-                        <div class="card-stats">
-                            <span>P/E: ${stock.fundamental.pe_ratio}</span>
-                            <span>Target: +${stock.action_plan.potential_profit}</span>
-                        </div>
-                    </div>
-                `;
+                        <div class="card-badges"><span class="badge badge-category">${stock.category}</span>${accumBadge}</div>
+                        <div class="card-stats"><span>P/E: ${stock.fundamental.pe_ratio}</span><span>Target: +${stock.action_plan.potential_profit}</span></div>
+                    </div>`;
                 grid.appendChild(card);
             });
         }
@@ -511,107 +263,39 @@
         function filterCategory(category, btn) {
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            if (category === 'all') {
-                renderCards(allStocks);
-            } else {
-                const filtered = allStocks.filter(s => s.category === category);
-                renderCards(filtered);
-            }
+            renderCards(category === 'all' ? allStocks : allStocks.filter(s => s.category === category));
         }
 
         function openModal(stock) {
             document.getElementById('modal-title').innerText = `${stock.name} (${stock.ticker})`;
-            
-            const body = document.getElementById('modal-body');
-            body.innerHTML = `
-                <div class="info-section">
-                    <h3>📊 Analisis Fundamental</h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="info-label">Forward P/E</div>
-                            <div class="info-value">${stock.fundamental.pe_ratio}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Dividen Yield</div>
-                            <div class="info-value">${stock.fundamental.dividend_yield}</div>
-                        </div>
-                        <div class="info-item full-width">
-                            <div class="info-label">Kesimpulan Valuasi</div>
-                            <div class="info-value">${stock.fundamental.verdict}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>️ Deteksi Spot Collector</h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="info-label">Status Akumulasi</div>
-                            <div class="info-value" style="color: ${stock.collector_status.is_accumulating ? 'var(--success)' : 'var(--text-light)'}">
-                                ${stock.collector_status.status_text}
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Dominasi Volume Beli</div>
-                            <div class="info-value">${stock.collector_status.up_vol_pct}%</div>
-                        </div>
-                        <div class="info-item full-width">
-                            <div class="info-label">Jarak dari Bottom (50 Hari)</div>
-                            <div class="info-value">${stock.collector_status.distance_from_low}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-section">
-                    <h3>🎯 Area Aksi (Swing Trading)</h3>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="info-label">🟢 Area Beli</div>
-                            <div class="info-value buy">$${stock.action_plan.buy_zone}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label"> Target Jual</div>
-                            <div class="info-value sell">$${stock.action_plan.target_sell}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">🛑 Stop Loss</div>
-                            <div class="info-value stop">$${stock.action_plan.stop_loss}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Potensi Profit</div>
-                            <div class="info-value" style="color: var(--primary);">${stock.action_plan.potential_profit}</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <p class="disclaimer">*Data diperbarui otomatis. Ini adalah alat bantu analisis, bukan ajakan mutlak untuk membeli/menjual. Selalu lakukan riset mandiri (DYOR).*</p>
-            `;
-            
+            document.getElementById('modal-body').innerHTML = `
+                <div class="info-section"><h3> Analisis Fundamental</h3><div class="info-grid">
+                    <div class="info-item"><div class="info-label">Forward P/E</div><div class="info-value">${stock.fundamental.pe_ratio}</div></div>
+                    <div class="info-item"><div class="info-label">Dividen Yield</div><div class="info-value">${stock.fundamental.dividend_yield}</div></div>
+                    <div class="info-item full-width"><div class="info-label">Kesimpulan Valuasi</div><div class="info-value">${stock.fundamental.verdict}</div></div>
+                </div></div>
+                <div class="info-section"><h3>🕵️ Deteksi Spot Collector</h3><div class="info-grid">
+                    <div class="info-item"><div class="info-label">Status Akumulasi</div><div class="info-value" style="color: ${stock.collector_status.is_accumulating ? 'var(--success)' : 'var(--text-muted)'}">${stock.collector_status.status_text}</div></div>
+                    <div class="info-item"><div class="info-label">Dominasi Volume Beli</div><div class="info-value">${stock.collector_status.up_vol_pct}%</div></div>
+                    <div class="info-item full-width"><div class="info-label">Jarak dari Bottom (50 Hari)</div><div class="info-value">${stock.collector_status.distance_from_low}</div></div>
+                </div></div>
+                <div class="info-section"><h3> Area Aksi (Swing)</h3><div class="info-grid">
+                    <div class="info-item"><div class="info-label">🟢 Area Beli</div><div class="info-value buy">$${stock.action_plan.buy_zone}</div></div>
+                    <div class="info-item"><div class="info-label">🔴 Target Jual</div><div class="info-value sell">$${stock.action_plan.target_sell}</div></div>
+                    <div class="info-item"><div class="info-label">🛑 Stop Loss</div><div class="info-value stop">$${stock.action_plan.stop_loss}</div></div>
+                    <div class="info-item"><div class="info-label">Potensi Profit</div><div class="info-value" style="color: var(--accent);">${stock.action_plan.potential_profit}</div></div>
+                </div></div>
+                <p class="disclaimer">*Data diperbarui otomatis. Ini adalah alat bantu analisis. Selalu lakukan riset mandiri (DYOR).*</p>`;
             document.getElementById('modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('modal');
-            if (event.target == modal) closeModal();
-        }
-
-        // Search functionality
+        function closeModal() { document.getElementById('modal').classList.remove('active'); document.body.style.overflow = ''; }
+        window.onclick = function(event) { if (event.target == document.getElementById('modal')) closeModal(); }
         document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const filtered = allStocks.filter(s => 
-                s.ticker.toLowerCase().includes(searchTerm) || 
-                s.name.toLowerCase().includes(searchTerm)
-            );
-            renderCards(filtered);
+            const term = e.target.value.toLowerCase();
+            renderCards(allStocks.filter(s => s.ticker.toLowerCase().includes(term) || s.name.toLowerCase().includes(term)));
         });
-
         loadData();
     </script>
 </body>

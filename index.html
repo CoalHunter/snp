@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&P500 Spot Detectors</title>
+    <style>
+        :root {
+            --primary: #ee4d2d; /* Warna khas Shopee */
+            --secondary: #fff;
+            --bg: #f5f5f5;
+            --text: #222;
+            --text-light: #757575;
+            --success: #26aa99;
+            --warning: #ffcd00;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(to bottom, #f53d2d, #ff6633);
+            padding: 15px 5%;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-size: 24px; font-weight: bold; letter-spacing: 1px; }
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        /* CATEGORIES */
+        .categories {
+            background: white;
+            padding: 15px 5%;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+        }
+        .cat-btn {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .cat-btn:hover, .cat-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* GRID KARTU SAHAM (STYLING SHOPEE) */
+        .container { padding: 20px 5%; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .card {
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            border: 1px solid transparent;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-color: var(--primary);
+        }
+        .card-img {
+            height: 150px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .card-body { padding: 10px; }
+        .card-title { font-size: 14px; margin: 0 0 5px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-price { color: var(--primary); font-size: 18px; font-weight: bold; margin-bottom: 8px; }
+        
+        /* BADGES */
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-right: 4px;
+            margin-bottom: 5px;
+        }
+        .badge-swing { background: #ffead5; color: var(--primary); border: 1px solid var(--primary); }
+        .badge-dividen { background: #e6f7f2; color: var(--success); border: 1px solid var(--success); }
+        .badge-accumulation { background: #ff0000; color: white; animation: pulse 1.5s infinite; }
+        
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+
+        .card-stats { font-size: 12px; color: var(--text-light); display: flex; justify-content: space-between; margin-top: 8px; }
+
+        /* POPUP MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            max-height: 85vh;
+            border-radius: 8px;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+        .modal-close { font-size: 24px; cursor: pointer; color: #999; }
+        .modal-body { padding: 20px; }
+        
+        .info-section { margin-bottom: 20px; }
+        .info-section h3 { font-size: 16px; color: var(--primary); margin-bottom: 10px; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 4px;}
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .info-item { background: #f9f9f9; padding: 10px; border-radius: 4px; }
+        .info-label { font-size: 12px; color: var(--text-light); }
+        .info-value { font-size: 16px; font-weight: bold; margin-top: 4px; }
+        .info-value.buy { color: var(--success); }
+        .info-value.sell { color: var(--primary); }
+        .info-value.stop { color: #d0011b; }
+
+        .disclaimer { font-size: 12px; color: #999; text-align: center; margin-top: 20px; font-style: italic;}
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">S&P500 Spot Detectors</div>
+        <input type="text" class="search-bar" placeholder="Cari ticker saham (misal: SPY, AAPL)...">
+        <div style="font-size: 14px;">🇮🇩 ID | 🇺🇸 EN</div>
+    </header>
+
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('all', this)">Semua</button>
+        <button class="cat-btn" onclick="filterCategory('Swing S&P 500', this)">Swing S&P 500</button>
+        <button class="cat-btn" onclick="filterCategory('Dividen Play', this)">Dividen Play</button>
+        <button class="cat-btn" onclick="filterCategory('Swing Tech', this)">Swing Tech</button>
+    </div>
+
+    <div class="container">
+        <div class="grid" id="stock-grid">
+            <!-- Kartu akan di-generate oleh JavaScript -->
+        </div>
+    </div>
+
+    <!-- POPUP MODAL -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title">Detail Saham</h2>
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Konten dinamis -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allStocks = [];
+
+        // 1. Ambil data dari JSON hasil Python
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                allStocks = data.stocks;
+                renderCards(allStocks);
+                
+                // Update waktu di header atau footer jika perlu
+                console.log("Data diupdate pada:", data.last_updated);
+            } catch (error) {
+                console.error("Gagal memuat data.json:", error);
+                document.getElementById('stock-grid').innerHTML = "<p>Gagal memuat data. Pastikan data.json ada.</p>";
+            }
+        }
+
+        // 2. Render Kartu (Tampilan Shopee)
+        function renderCards(stocks) {
+            const grid = document.getElementById('stock-grid');
+            grid.innerHTML = '';
+
+            stocks.forEach(stock => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => openModal(stock);
+
+                // Tentukan class badge berdasarkan kategori
+                let catClass = 'badge-swing';
+                if(stock.category.includes('Dividen')) catClass = 'badge-dividen';
+
+                let accumBadge = '';
+                if(stock.collector_status.is_accumulating) {
+                    accumBadge = `<span class="badge badge-accumulation">🔥 COLLECTOR</span>`;
+                }
+
+                card.innerHTML = `
+                    <div class="card-img">${stock.ticker}</div>
+                    <div class="card-body">
+                        <p class="card-title">${stock.name}</p>
+                        <div class="card-price">$${stock.current_price}</div>
+                        <span class="badge ${catClass}">${stock.category}</span>
+                        ${accumBadge}
+                        <div class="card-stats">
+                            <span>P/E: ${stock.fundamental.pe_ratio}</span>
+                            <span>Target: +${stock.action_plan.potential_profit}</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 3. Filter Kategori
+        function filterCategory(category, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            if(category === 'all') {
+                renderCards(allStocks);
+            } else {
+                const filtered = allStocks.filter(s => s.category === category);
+                renderCards(filtered);
+            }
+        }
+
+        // 4. Buka Popup Modal
+        function openModal(stock) {
+            document.getElementById('modal-title').innerText = `${stock.name} (${stock.ticker})`;
+            
+            const body = document.getElementById('modal-body');
+            body.innerHTML = `
+                <div class="info-section">
+                    <h3>📊 Analisis Fundamental</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Forward P/E</div>
+                            <div class="info-value">${stock.fundamental.pe_ratio}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Dividen Yield</div>
+                            <div class="info-value">${stock.fundamental.dividend_yield}</div>
+                        </div>
+                        <div class="info-item" style="grid-column: span 2;">
+                            <div class="info-label">Kesimpulan Valuasi</div>
+                            <div class="info-value">${stock.fundamental.verdict}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>🕵️ Deteksi Spot Collector (Bandar)</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Status Akumulasi</div>
+                            <div class="info-value" style="color: ${stock.collector_status.is_accumulating ? 'var(--success)' : 'var(--text-light)'}">
+                                ${stock.collector_status.status_text}
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Dominasi Volume Beli</div>
+                            <div class="info-value">${stock.collector_status.up_vol_pct}%</div>
+                        </div>
+                        <div class="info-item" style="grid-column: span 2;">
+                            <div class="info-label">Jarak dari Bottom (50 Hari)</div>
+                            <div class="info-value">${stock.collector_status.distance_from_low}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>🎯 Area Aksi (Swing Trading)</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">🟢 Area Beli (Buy Zone)</div>
+                            <div class="info-value buy">$${stock.action_plan.buy_zone}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">🔴 Target Jual (Take Profit)</div>
+                            <div class="info-value sell">$${stock.action_plan.target_sell}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">🛑 Stop Loss (Cut Loss)</div>
+                            <div class="info-value stop">$${stock.action_plan.stop_loss}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Potensi Profit per Swing</div>
+                            <div class="info-value" style="color: var(--primary);">${stock.action_plan.potential_profit}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="disclaimer">*Data diperbarui otomatis. Ini adalah alat bantu analisis, bukan ajakan mutlak untuk membeli/menjual. Selalu lakukan riset mandiri (DYOR).* </p>
+            `;
+            
+            document.getElementById('modal').classList.add('active');
+        }
+
+        // 5. Tutup Popup
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Tutup modal jika klik di luar area modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) closeModal();
+        }
+
+        // Inisialisasi
+        loadData();
+    </script>
+</body>
+  </html>

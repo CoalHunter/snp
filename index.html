@@ -1,302 +1,874 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S&P500 Spot Detectors</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #141414;
-            --bg-card: #1a1a1a;
-            --bg-modal: #1e1e1e;
-            --bg-input: #2a2a2a;
-            --border: #2a2a2a;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --text-muted: #666666;
-            --accent: #ff6b35;
-            --accent-hover: #ff8555;
-            --success: #00d4aa;
-            --danger: #ff4757;
-            --warning: #ffa502;
-        }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            background-color: var(--bg-primary); 
-            color: var(--text-primary); 
-            line-height: 1.5; 
-        }
+<meta charset="UTF-8">
+<meta name6="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&P500 Spot Detectors</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
 
-        /* HEADER */
-        header { 
-            background: var(--bg-secondary); 
-            padding: 12px 16px; 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            border-bottom: 1px solid var(--border);
-        }
-        .logo { 
-            font-size: 18px; 
-            font-weight: 700; 
-            white-space: nowrap; 
-            flex-shrink: 0; 
-            color: var(--accent);
-        }
-        .search-container { flex: 1; min-width: 0; }
-        .search-bar { 
-            width: 100%; 
-            padding: 8px 12px; 
-            border: 1px solid var(--border); 
-            border-radius: 6px; 
-            outline: none; 
-            font-size: 14px; 
-            background: var(--bg-input);
-            color: var(--text-primary);
-        }
-        .search-bar::placeholder { color: var(--text-muted); }
-        .search-bar:focus { border-color: var(--accent); }
-        .lang-switch { font-size: 12px; white-space: nowrap; flex-shrink: 0; color: var(--text-secondary); }
+:root {
+--bg-primary: #0a0a0a;
+--bg-secondary: #1a1a1a;
+--bg-tertiary: #2a2a2a;
+--text-primary: #ffffff;
+--text-secondary: #a0a0a0;
+--accent: #ff6b35;
+--accent-hover: #ff8555;
+--success: #00d4aa;
+--danger: #ff4757;
+--warning: #ffa502;
+--border: #333333;
+}
 
-        /* STATS BAR */
-        .stats-bar {
-            background: var(--bg-secondary);
-            padding: 10px 16px;
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            border-bottom: 1px solid var(--border);
-            font-size: 12px;
-        }
-        .stats-bar::-webkit-scrollbar { display: none; }
-        .stat-item { white-space: nowrap; color: var(--text-secondary); }
-        .stat-item span { color: var(--accent); font-weight: 600; }
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+background: var(--bg-primary);
+color: var(--text-primary);
+line-height: 1.6;
+min-height: 100vh;
+}
 
-        /* CATEGORIES */
-        .categories { 
-            background: var(--bg-secondary); 
-            padding: 12px 16px; 
-            display: flex; 
-            gap: 8px; 
-            overflow-x: auto; 
-            border-bottom: 1px solid var(--border); 
-            -webkit-overflow-scrolling: touch; 
-        }
-        .categories::-webkit-scrollbar { display: none; }
-        .cat-btn { 
-            padding: 8px 16px; 
-            border: 1px solid var(--border); 
-            border-radius: 20px; 
-            background: var(--bg-card); 
-            color: var(--text-secondary);
-            cursor: pointer; 
-            white-space: nowrap; 
-            font-size: 13px; 
-            font-weight: 500; 
-            transition: all 0.2s; 
-            flex-shrink: 0; 
-        }
-        .cat-btn:hover { border-color: var(--accent); color: var(--text-primary); }
-        .cat-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+.container {
+max-width: 1400px;
+margin: 0 auto;
+padding: 20px;
+}
 
-        /* GRID */
-        .container { padding: 16px; max-width: 1400px; margin: 0 auto; }
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        @media (min-width: 768px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
-        @media (min-width: 1024px) { .grid { grid-template-columns: repeat(4, 1fr); } }
-        @media (min-width: 1280px) { .grid { grid-template-columns: repeat(5, 1fr); } }
+/* Header */
+.header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 20px 0;
+border-bottom: 1px solid var(--border);
+margin-bottom: 20px;
+flex-wrap: wrap;
+gap: 15px;
+}
 
-        /* CARD */
-        .card { 
-            background: var(--bg-card); 
-            border-radius: 8px; 
-            border: 1px solid var(--border);
-            overflow: hidden; 
-            cursor: pointer; 
-            transition: all 0.2s; 
-            display: flex; 
-            flex-direction: column; 
-        }
-        .card:hover { 
-            transform: translateY(-2px); 
-            border-color: var(--accent); 
-            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
-        }
-        .card-img { 
-            height: 100px; 
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 28px; 
-            font-weight: 700; 
-            color: var(--accent);
-            border-bottom: 1px solid var(--border);
-        }
-        .card-body { padding: 10px; flex: 1; display: flex; flex-direction: column; }
-        .card-title { font-size: 12px; margin: 0 0 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-primary); }
-        .card-price { color: var(--accent); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-        .card-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; min-height: 24px; }
-        .badge { display: inline-block; padding: 3px 8px; border-radius: 3px; font-size: 10px; font-weight: 600; }
-        .badge-category { background: rgba(255, 107, 53, 0.15); color: var(--accent); border: 1px solid var(--accent); }
-        .badge-accumulation { background: var(--danger); color: white; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-        .card-stats { font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border); }
+.logo {
+font-size: 28px;
+font-weight: 700;
+color: var(--accent);
+}
 
-        /* MODAL */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: flex-end; }
-        .modal-overlay.active { display: flex; }
-        .modal { background: var(--bg-modal); width: 100%; max-width: 600px; max-height: 90vh; border-radius: 16px 16px 0 0; overflow-y: auto; animation: slideUp 0.3s ease; border: 1px solid var(--border); }
-        @media (min-width: 768px) { .modal-overlay { align-items: center; padding: 20px; } .modal { border-radius: 12px; } }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        .modal-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; background: var(--bg-modal); z-index: 10; }
-        .modal-header h2 { font-size: 18px; font-weight: 700; }
-        .modal-close { font-size: 28px; cursor: pointer; color: var(--text-muted); }
-        .modal-close:hover { color: var(--text-primary); }
-        .modal-body { padding: 20px; }
-        .info-section { margin-bottom: 24px; }
-        .info-section h3 { font-size: 15px; color: var(--accent); margin-bottom: 12px; font-weight: 700; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .info-item { background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
-        .info-item.full-width { grid-column: span 2; }
-        .info-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; }
-        .info-value { font-size: 15px; font-weight: 700; color: var(--text-primary); }
-        .info-value.buy { color: var(--success); }
-        .info-value.sell { color: var(--accent); }
-        .info-value.stop { color: var(--danger); }
-        .disclaimer { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); font-style: italic; }
-        .loading, .error { text-align: center; padding: 40px; color: var(--text-muted); font-size: 14px; grid-column: 1 / -1; }
+.search-box {
+position: relative;
+flex: 1;
+max-width: 400px;
+}
 
-        /* SCROLLBAR */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
-    </style>
+.search-box input {
+width: 100%;
+padding: 12px 20px;
+background: var(--bg-secondary);
+border: 1px solid var(--border);
+border-radius: 8px;
+color: var(--text-primary);
+font-size: 14px;
+outline: none;
+transition: border-color 0.3s;
+}
+
+.search-box input:focus {
+border-color: var(--accent);
+}
+
+.theme-toggle {
+display: flex;
+align-items: center;
+gap: 8px;
+cursor: pointer;
+padding: 10px 15px;
+background: var(--bg-secondary);
+border-radius: 8px;
+border: 1px solid var(--border);
+}
+
+/* Stats Bar */
+.stats-bar {
+display: flex;
+gap: 30px;
+padding: 15px 0;
+border-bottom: 1px solid var(--border);
+margin-bottom: 20px;
+flex-wrap: wrap;
+}
+
+.stat-item {
+display: flex;
+gap: 8px;
+align-items: center;
+}
+
+.stat-label {
+color: var(--text-secondary);
+font-size: 14px;
+}
+
+.stat-value {
+color: var(--accent);
+font-weight: 600;
+font-size: 14px;
+}
+
+/* Filter Buttons */
+.filter-container {
+display: flex;
+gap: 10px;
+margin-bottom: 25px;
+overflow-x: auto;
+padding-bottom: 10px;
+}
+
+.filter-btn {
+padding: 10px 20px;
+background: var(--bg-secondary);
+border: 1px solid var(--border);
+border-radius: 20px;
+color: var(--text-secondary);
+cursor: pointer;
+white-space: nowrap;
+transition: all 0.3s;
+font-size: 14px;
+}
+
+.filter-btn:hover {
+border-color: var(--accent);
+color: var(--accent);
+}
+
+.filter-btn.active {
+background: var(--accent);
+border-color: var(--accent);
+color: var(--text-primary);
+}
+
+/* Sort Container */
+.sort-container {
+display: flex;
+gap: 10px;
+margin-bottom: 25px;
+flex-wrap: wrap;
+}
+
+.sort-btn {
+padding: 8px 16px;
+background: var(--bg-tertiary);
+border: 1px solid var(--border);
+border-radius: 6px;
+color: var(--text-secondary);
+cursor: pointer;
+font-size: 13px;
+transition: all 0.3s;
+}
+
+.sort-btn:hover {
+border-color: var(--accent);
+color: var(--accent);
+}
+
+.sort-btn.active {
+background: var(--accent);
+border-color: var(--accent);
+color: var(--text-primary);
+}
+
+/* Grid */
+.grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+gap: 20px;
+}
+
+/* Card */
+.card {
+background: var(--bg-secondary);
+border-radius: 12px;
+overflow: hidden;
+border: 1px solid var(--border);
+transition: transform 0.3s, box-shadow 0.3s;
+cursor: pointer;
+}
+
+.card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+}
+
+.card-header {
+padding: 30px 20px;
+text-align: center;
+background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+border-bottom: 1px solid var(--border);
+}
+
+.card-ticker {
+font-size: 42px;
+font-weight: 700;
+color: var(--accent);
+margin-bottom: 10px;
+}
+
+.card-name {
+font-size: 14px;
+color: var(--text-secondary);
+margin-bottom: 15px;
+}
+
+.card-price {
+font-size: 28px;
+font-weight: 600;
+color: var(--accent);
+}
+
+.card-body {
+padding: 20px;
+}
+
+.card-category {
+display: inline-block;
+padding: 6px 12px;
+background: var(--bg-tertiary);
+border: 1px solid var(--accent);
+border-radius: 6px;
+color: var(--accent);
+font-size: 12px;
+margin-bottom: 10px;
+}
+
+.card-collector {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+padding: 6px 12px;
+background: var(--danger);
+border-radius: 6px;
+color: var(--text-primary);
+font-size: 12px;
+font-weight: 600;
+margin-bottom: 15px;
+animation: pulse 2s infinite;
+}
+
+.card-collector.neutral {
+background: var(--bg-tertiary);
+animation: none;
+}
+
+@keyframes pulse {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.7; }
+}
+
+.card-stats {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+padding-top: 15px;
+border-top: 1px solid var(--border);
+}
+
+.stat-box {
+display: flex;
+flex-direction: column;
+gap: 4px;
+}
+
+.stat-box-label {
+font-size: 11px;
+color: var(--text-secondary);
+}
+
+.stat-box-value {
+font-size: 14px;
+font-weight: 600;
+color: var(--text-primary);
+}
+
+/* Modal */
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.8);
+z-index: 1000;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
+
+.modal.active {
+display: flex;
+}
+
+.modal-content {
+background: var(--bg-secondary);
+border-radius: 12px;
+max-width: 600px;
+width: 100%;
+max-height: 90vh;
+overflow-y: auto;
+border: 1px solid var(--border);
+}
+
+.modal-header {
+padding: 20px;
+border-bottom: 1px solid var(--border);
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.modal-title {
+font-size: 24px;
+font-weight: 700;
+color: var(--accent);
+}
+
+.modal-close {
+background: none;
+border: none;
+color: var(--text-secondary);
+font-size: 24px;
+cursor: pointer;
+padding: 5px 10px;
+}
+
+.modal-close:hover {
+color: var(--accent);
+}
+
+.modal-body {
+padding: 20px;
+}
+
+.modal-section {
+margin-bottom: 20px;
+}
+
+.modal-section-title {
+font-size: 16px;
+font-weight: 600;
+color: var(--accent);
+margin-bottom: 10px;
+padding-bottom: 8px;
+border-bottom: 1px solid var(--border);
+}
+
+.modal-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+}
+
+.modal-item {
+padding: 10px;
+background: var(--bg-tertiary);
+border-radius: 6px;
+}
+
+.modal-item-label {
+font-size: 11px;
+color: var(--text-secondary);
+margin-bottom: 4px;
+}
+
+.modal-item-value {
+font-size: 14px;
+font-weight: 600;
+color: var(--text-primary);
+}
+
+.action-zones {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: 10px;
+}
+
+.action-zone {
+padding: 12px;
+background: var(--bg-tertiary);
+border-radius: 6px;
+text-align: center;
+}
+
+.action-zone.buy {
+border: 2px solid var(--success);
+}
+
+.action-zone.target {
+border: 2px solid var(--warning);
+}
+
+.action-zone.stop {
+border: 2px solid var(--danger);
+}
+
+.action-zone-label {
+font-size: 11px;
+color: var(--text-secondary);
+margin-bottom: 4px;
+}
+
+.action-zone-value {
+font-size: 16px;
+font-weight: 700;
+color: var(--text-primary);
+}
+
+/* Loading */
+.loading {
+text-align: center;
+padding: 60px 20px;
+color: var(--text-secondary);
+}
+
+.loading-spinner {
+width: 40px;
+height: 40px;
+border: 3px solid var(--border);
+border-top-color: var(--accent);
+border-radius: 50%;
+animation: spin 1s linear infinite;
+margin: 0 auto 20px;
+}
+
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+
+/* Empty State */
+.empty-state {
+text-align: center;
+padding: 60px 20px;
+color: var(--text-secondary);
+}
+
+.empty-state-icon {
+font-size: 48px;
+margin-bottom: 15px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+.grid {
+grid-template-columns: 1fr;
+}
+
+.header {
+flex-direction: column;
+align-items: stretch;
+}
+
+.search-box {
+max-width: 100%;
+}
+
+.stats-bar {
+flex-direction: column;
+gap: 10px;
+}
+
+.modal-grid {
+grid-template-columns: 1fr;
+}
+
+.action-zones {
+grid-template-columns: 1fr;
+}
+}
+
+@media (max-width: 480px) {
+.card-ticker {
+font-size: 32px;
+}
+
+.card-price {
+font-size: 24px;
+}
+
+.logo {
+font-size: 22px;
+}
+}
+</style>
 </head>
 <body>
-    <header>
-        <div class="logo">S&P500 Spot Detectors</div>
-        <div class="search-container"><input type="text" class="search-bar" placeholder="Cari ticker (SPY, SCHD, QQQ...)" id="searchInput"></div>
-        <div class="lang-switch">🌙 Dark</div>
-    </header>
+<div class="container">
+<!-- Header -->
+<div class="header">
+<div class="logo">S&P500 Spot Detectors</div>
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Cari ticker (SCHD, VIG, SPY...)">
+</div>
+<div class="theme-toggle" onclick="toggleTheme()">
+<span>🌙</span>
+<span>Dark</span>
+</div>
+</div>
 
-    <div class="stats-bar" id="stats-bar">
-        <div class="stat-item">Total ETF: <span id="stat-total">-</span></div>
-        <div class="stat-item">Akumulasi Aktif: <span id="stat-accumulating">-</span></div>
-        <div class="stat-item">Update: <span id="stat-updated">-</span></div>
-    </div>
+<!-- Stats Bar -->
+<div class="stats-bar">
+<div class="stat-item">
+<span class="stat-label">Total ETF:</span>
+<span class="stat-value" id="totalETF">0</span>
+</div>
+<div class="stat-item">
+<span class="stat-label">Akumulasi Aktif:</span>
+<span class="stat-value" id="activeAccumulation">0</span>
+</div>
+<div class="stat-item">
+<span class="stat-label">Update:</span>
+<span class="stat-value" id="lastUpdate">-</span>
+</div>
+</div>
 
-    <div class="categories">
-        <button class="cat-btn active" onclick="filterCategory('all', this)">Semua</button>
-        <button class="cat-btn" onclick="filterCategory('Dividen Growth', this)">Dividen Growth</button>
-        <button class="cat-btn" onclick="filterCategory('Broad Market', this)">Broad Market</button>
-        <button class="cat-btn" onclick="filterCategory('Tech & Growth', this)">Tech & Growth</button>
-        <button class="cat-btn" onclick="filterCategory('Sektor', this)">Sektor</button>
-        <button class="cat-btn" onclick="filterCategory('Small Cap', this)">Small Cap</button>
-        <button class="cat-btn" onclick="filterCategory('International', this)">International</button>
-        <button class="cat-btn" onclick="filterCategory('Bond', this)">Bond</button>
-        <button class="cat-btn" onclick="filterCategory('Komoditas', this)">Komoditas</button>
-        <button class="cat-btn" onclick="filterCategory('REITs', this)">REITs</button>
-        <button class="cat-btn" onclick="filterCategory('Crypto', this)">Crypto</button>
-    </div>
+<!-- Filter Buttons -->
+<div class="filter-container" id="filterContainer">
+<button class="filter-btn active" data-category="all">Semua</button>
+</div>
 
-    <div class="container">
-        <div class="grid" id="stock-grid"><div class="loading">Memuat data ETF...</div></div>
-    </div>
+<!-- Sort Buttons -->
+<div class="sort-container">
+<button class="sort-btn active" data-sort="default">Default</button>
+<button class="sort-btn" data-sort="profit">Potensi Profit Tertinggi</button>
+<button class="sort-btn" data-sort="dividend">Dividen Yield Tertinggi</button>
+<button class="sort-btn" data-sort="distance">Paling Dekat ke Support</button>
+<button class="sort-btn" data-sort="price-asc">Harga Terendah</button>
+<button class="sort-btn" data-sort="price-desc">Harga Tertinggi</button>
+</div>
 
-    <div class="modal-overlay" id="modal">
-        <div class="modal">
-            <div class="modal-header"><h2 id="modal-title">Detail ETF</h2><span class="modal-close" onclick="closeModal()">&times;</span></div>
-            <div class="modal-body" id="modal-body"></div>
-        </div>
-    </div>
+<!-- Grid -->
+<div class="grid" id="grid">
+<div class="loading">
+<div class="loading-spinner"></div>
+<p>Memuat data...</p>
+</div>
+</div>
+</div>
 
-    <script>
-        let allStocks = [];
-        async function loadData() {
-            try {
-                const response = await fetch('data.json');
-                if (!response.ok) throw new Error('Gagal memuat data');
-                const data = await response.json();
-                allStocks = data.stocks;
-                updateStats(data);
-                renderCards(allStocks);
-            } catch (error) {
-                document.getElementById('stock-grid').innerHTML = '<div class="error">Gagal memuat data. Pastikan data.json tersedia.</div>';
-            }
-        }
+<!-- Modal -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<div class="modal-header">
+<div class="modal-title" id="modalTitle">-</div>
+<button class=")modal-close" onclick="closeModal()">×</button>
+</div>
+<div class="modal-body" id="modalBody">
+</div>
+</div>
+</div>
 
-        function updateStats(data) {
-            document.getElementById('stat-total').innerText = data.total_etf || data.stocks.length;
-            const accumulating = data.stocks.filter(s => s.collector_status.is_accumulating).length;
-            document.getElementById('stat-accumulating').innerText = accumulating;
-            document.getElementById('stat-updated').innerText = data.last_updated || '-';
-        }
+<script>
+let allData = [];
+let filteredData = [];
+let currentCategory = 'all';
+let currentSort = 'default';
 
-        function renderCards(stocks) {
-            const grid = document.getElementById('stock-grid');
-            if (stocks.length === 0) { grid.innerHTML = '<div class="loading">Tidak ada ETF ditemukan.</div>'; return; }
-            grid.innerHTML = '';
-            stocks.forEach(stock => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.onclick = () => openModal(stock);
-                let accumBadge = stock.collector_status.is_accumulating ? '<span class="badge badge-accumulation">🔥 COLLECTOR</span>' : '';
-                card.innerHTML = `
-                    <div class="card-img">${stock.ticker}</div>
-                    <div class="card-body">
-                        <p class="card-title">${stock.name}</p>
-                        <div class="card-price">$${stock.current_price}</div>
-                        <div class="card-badges"><span class="badge badge-category">${stock.category}</span>${accumBadge}</div>
-                        <div class="card-stats"><span>P/E: ${stock.fundamental.pe_ratio}</span><span>Target: +${stock.action_plan.potential_profit}</span></div>
-                    </div>`;
-                grid.appendChild(card);
-            });
-        }
+// Fetch data dengan timestamp untuk menghindari cache
+async function fetchData() {
+try {
+const response = await fetch('data.json?t=' + Date.now());
+const data = await response.json();
+allData = data.stocks || [];
+updateStats(data);
+createFilterButtons();
+renderGrid();
+} catch (error) {
+console.error('Error fetching data:', error);
+document.getElementById('grid').innerHTML = `
+<div class="empty-state">
+<div class="empty-state-icon">⚠️</div>
+<p>Gagal memuat data. Silakan refresh halaman.</p>
+</div>
+`;
+}
+}
 
-        function filterCategory(category, btn) {
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderCards(category === 'all' ? allStocks : allStocks.filter(s => s.category === category));
-        }
+// Update stats bar
+function updateStats(data) {
+document.getElementById('totalETF').textContent = data.total_etf || allData.length;
+const activeCount = allData.filter(s => s.collector_status?.is_accumulating).length;
+document.getElementById('activeAccumulation').textContent = activeCount;
+document.getElementById('lastUpdate').textContent = data.last_updated || '-';
+}
 
-        function openModal(stock) {
-            document.getElementById('modal-title').innerText = `${stock.name} (${stock.ticker})`;
-            document.getElementById('modal-body').innerHTML = `
-                <div class="info-section"><h3> Analisis Fundamental</h3><div class="info-grid">
-                    <div class="info-item"><div class="info-label">Forward P/E</div><div class="info-value">${stock.fundamental.pe_ratio}</div></div>
-                    <div class="info-item"><div class="info-label">Dividen Yield</div><div class="info-value">${stock.fundamental.dividend_yield}</div></div>
-                    <div class="info-item full-width"><div class="info-label">Kesimpulan Valuasi</div><div class="info-value">${stock.fundamental.verdict}</div></div>
-                </div></div>
-                <div class="info-section"><h3>🕵️ Deteksi Spot Collector</h3><div class="info-grid">
-                    <div class="info-item"><div class="info-label">Status Akumulasi</div><div class="info-value" style="color: ${stock.collector_status.is_accumulating ? 'var(--success)' : 'var(--text-muted)'}">${stock.collector_status.status_text}</div></div>
-                    <div class="info-item"><div class="info-label">Dominasi Volume Beli</div><div class="info-value">${stock.collector_status.up_vol_pct}%</div></div>
-                    <div class="info-item full-width"><div class="info-label">Jarak dari Bottom (50 Hari)</div><div class="info-value">${stock.collector_status.distance_from_low}</div></div>
-                </div></div>
-                <div class="info-section"><h3> Area Aksi (Swing)</h3><div class="info-grid">
-                    <div class="info-item"><div class="info-label">🟢 Area Beli</div><div class="info-value buy">$${stock.action_plan.buy_zone}</div></div>
-                    <div class="info-item"><div class="info-label">🔴 Target Jual</div><div class="info-value sell">$${stock.action_plan.target_sell}</div></div>
-                    <div class="info-item"><div class="info-label">🛑 Stop Loss</div><div class="info-value stop">$${stock.action_plan.stop_loss}</div></div>
-                    <div class="info-item"><div class="info-label">Potensi Profit</div><div class="info-value" style="color: var(--accent);">${stock.action_plan.potential_profit}</div></div>
-                </div></div>
-                <p class="disclaimer">*Data diperbarui otomatis. Ini adalah alat bantu analisis. Selalu lakukan riset mandiri (DYOR).*</p>`;
-            document.getElementById('modal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+// Create filter buttons dari kategori yang ada
+function createFilterButtons() {
+const categories = [...new Set(allData.map(s => s.category).filter(Boolean))];
+const container = document.getElementById('filterContainer');
 
-        function closeModal() { document.getElementById('modal').classList.remove('active'); document.body.style.overflow = ''; }
-        window.onclick = function(event) { if (event.target == document.getElementById('modal')) closeModal(); }
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const term = e.target.value.toLowerCase();
-            renderCards(allStocks.filter(s => s.ticker.toLowerCase().includes(term) || s.name.toLowerCase().includes(term)));
-        });
-        loadData();
-    </script>
+categories.forEach(cat => {
+const btn = document.createElement('button');
+btn.className = 'filter-btn';
+btn.dataset.category = cat;
+btn.textContent = cat;
+btn.onclick = () => setCategory(cat);
+container.appendChild(btn);
+});
+
+// Add event listeners untuk semua filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+btn.onclick = () => setCategory(btn.dataset.category);
+});
+}
+
+// Set category filter
+function setCategory(category) {
+currentCategory = category;
+document.querySelectorAll('.filter-btn').forEach(btn => {
+btn.classList.toggle('active', btn.dataset.category === category);
+});
+applyFilters();
+}
+
+// Set sort
+function setSort(sort) {
+currentSort = sort;
+document.querySelectorAll('.sort-btn').forEach(btn => {
+btn.classList.toggle('active', btn.dataset.sort === sort);
+});
+applyFilters();
+}
+
+// Apply filters dan sort
+function applyFilters() {
+const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+filteredData = allData.filter(stock => {
+const matchCategory = currentCategory === 'all' || stock.category === currentCategory;
+const matchSearch = stock.ticker?.toLowerCase().includes(searchTerm) ||
+stock.name?.toLowerCase().includes(searchTerm);
+return matchCategory && matchSearch;
+});
+
+// Apply sorting
+switch (currentSort) {
+case 'profit':
+filteredData.sort((a, b) => {
+const profitA = parseFloat(a.action_plan?.potential_profit) || 0;
+const profitB = parseFloat(b.action_plan?.potential_profit) || 0;
+return profitB - profitA;
+});
+break;
+case 'dividend':
+filteredData.sort((a, b) => {
+const divA = parseFloat(a.fundamental?.dividend_yield) || 0;
+const divB = parseFloat(b.fundamental?.dividend_yield) || 0;
+return divB - divA;
+});
+break;
+case 'distance':
+filteredData.sort((a, b) => {
+const distA = parseFloat(a.collector_status?.distance_from_low) || 0;
+const distB = parseFloat(b.collector_status?.distance_from_low) || 0;
+return distA - distB;
+});
+break;
+case 'price-asc':
+filteredData.sort((a, b) => (a.current_price || 0) - (b.current_price || 0));
+break;
+case 'price-desc':
+filteredData.sort((a, b) => (b.current_price || 0) - (a.current_price || 0));
+break;
+}
+
+renderGrid();
+}
+
+// Render grid
+function renderGrid() {
+const grid = document.getElementById('grid');
+
+if (filteredData.length === 0) {
+grid.innerHTML = `
+<div class="empty-state">
+<div class="empty-state-icon"></div>
+<p>Tidak ada data yang cocok dengan filter Anda.</p>
+</div>
+`;
+return;
+}
+
+grid.innerHTML = filteredData.map(stock => {
+const isAccumulating = stock.collector_status?.is_accumulating;
+const dividendYield = stock.fundamental?.dividend_yield || 'N/A';
+const peRatio = stock.fundamental?.pe_ratio || 'N/A';
+const potentialProfit = stock.action_plan?.potential_profit || 'N/A';
+
+return `
+<div class="card" onclick="openModal('${stock.ticker}')">
+<div class="card-header">
+<div class="card-ticker">${stock.ticker}</div>
+<div class="card-name">${stock.name || '-'}</div>
+<div class="card-price">$${stock.current_price?.toFixed(2) || 'N/A'}</div>
+</div>
+<div class="card-body">
+<div class="card-category">${stock.category || '-'}</div>
+<div class="card-collector ${isAccumulating ? '' : 'neutral'}">
+${isAccumulating ? '🔥' : '⚪'} ${isAccumulating ? 'COLLECTOR' : 'NETRAL'}
+</div>
+<div class="card-stats">
+<div class="stat-box">
+<span class="stat-box-label">P/E Ratio</span>
+<span class="stat-box-value">${peRatio}</span>
+</div>
+<div class="stat-box">
+<span class="stat-box-label">Dividen Yield</span>
+<span class="stat-box-value">${dividendYield}</span>
+</div>
+<div class="stat-box">
+<span class="stat-box-label">Up Volume %</span>
+<span class="stat-box-value">${stock.collector_status?.up_vol_pct || 0}%</span>
+</div>
+<div class="stat-box">
+<span class="stat-box-label">Target Profit</span>
+<span class="stat-box-value">${potentialProfit}</span>
+</div>
+</div>
+</div>
+</div>
+`;
+}).join('');
+}
+
+// Open modal
+function openModal(ticker) {
+const stock = allData.find(s => s.ticker === ticker);
+if (!stock) return;
+
+document.getElementById('modalTitle').textContent = stock.ticker;
+
+const modalBody = document.getElementById('modalBody');
+modalBody.innerHTML = `
+<div class="modal-section">
+<div class="modal-section-title">Informasi Dasar</div>
+<div class="modal-grid">
+<div class="modal-item">
+<div class="modal-item-label">Nama</div>
+<div class="modal-item-value">${stock.name || '-'}</div>
+</div>
+<div class="modal-item">
+<div class="modal-item-label">Kategori</div>
+<div class="modal-item-value">${stock.category || '-'}</div>
+</div>
+<div class="modal-item">
+<div class="modal-item-label">Harga Saat Ini</div>
+<div class="modal-item-value">$${stock.current_price?.toFixed(2) || 'N/A'}</div>
+</div>
+<div class="modal-item">
+<div class="modal-item-label">Status</div>
+<div class="modal-item-value">${stock.collector_status?.is_accumulating ? '🔥 Akumulasi' : '⚪ Netral'}</div>
+</div>
+</div>
+</div>
+
+<div class="modal-section">
+<div class="modal-section-title">Fundamental</div>
+<div class="modal-grid">
+<div class="modal-item">
+<div class="modal-item-label">P/E Ratio</div>
+<div class="modal-item-value">${stock.fundamental?.pe_ratio || 'N/A'}</div>
+</div>
+<div class="modal-item">
+<div class="modal-item-label">Dividen Yield</div>
+<div class="modal-item-value">${stock.fundamental?.dividend_yield || 'N/A'}</div>
+</div>
+<div class="modal-item">
+<div class="modal-item-label">Verdict</div>
+<div class="modal-item-value">${stock.fundamental?.verdict || 'N/A'}</div>
+</div>
+<div class="modal-item">
+<div class="modal-item-label">Up Volume %</div>
+<div class="modal-item-value">${stock.collector_status?.up_vol_pct || 0}%</div>
+</div>
+</div>
+</div>
+
+<div class="modal-section">
+<div class="modal-section-title">Collector Status</div>
+<div class="modal-grid">
+<div class="modal-item">
+<div class="modal-item-label">Status</div>
+<div class="modal-item-value">${stock.collector_status?.status_text || '-'}</div>
+</div>
+<div class="modal-item">
+<div class="modal-item-label">Distance from Low</div>
+<div class="modal-item-value">${stock.collector_status?.distance_from_low || 'N/A'}</div>
+</div>
+</div>
+</div>
+
+<div class="modal-section">
+<div class="modal-section-title">Action Plan</div>
+<div class="action-zones">
+<div class="action-zone buy">
+<div class="action-zone-label">Buy Zone</div>
+<div class="action-zone-value">$${stock.action_plan?.buy_zone?.toFixed(2) || 'N/A'}</div>
+</div>
+<div class="action-zone target">
+<div class="action-zone-label">Target Sell</div>
+<div class="action-zone-value">$${stock.action_plan?.target_sell?.toFixed(2) || 'N/A'}</div>
+</div>
+<div class="action-zone stop">
+<div class="action-zone-label">Stop Loss</div>
+<div class="action-zone-value">$${stock.action_plan?.stop_loss?.toFixed(2) || 'N/A'}</div>
+</div>
+</div>
+<div class="modal-grid" style="margin-top: 10px;">
+<div class="modal-item">
+<div class="modal-item-label">Potensi Profit</div>
+<div class="modal-item-value">${stock.action_plan?.potential_profit || 'N/A'}</div>
+</div>
+</div>
+</div>
+`;
+
+document.getElementById('modal').classList.add('active');
+}
+
+// Close modal
+function closeModal() {
+document.getElementById('modal').classList.remove('active');
+}
+
+// Close modal saat klik di luar
+document.getElementById('modal').addEventListener('click', (e) => {
+if (e.target.id === 'modal') {
+closeModal();
+}
+});
+
+// Toggle theme (placeholder)
+function toggleTheme() {
+alert('Fitur tema akan segera hadir!');
+}
+
+// Event listeners
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+document.querySelectorAll('.sort-btn').forEach(btn => {
+btn.onclick = () => setSort(btn.dataset.sort);
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape') {
+closeModal();
+}
+});
+
+// Initialize
+fetchData();
+</script>
 </body>
 </html>

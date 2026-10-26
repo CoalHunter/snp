@@ -14,14 +14,19 @@ def analyze_ticker(ticker, category):
 
     current_price = float(hist['Close'].iloc[-1])
     
-    # 1. Fundamental Check (DIPERBAIKI)
-    # Yahoo Finance sering tidak kasih forwardPE untuk ETF, kita pakai trailingPE sebagai backup
+    # 1. Fundamental Check
     pe_ratio = info.get('forwardPE') or info.get('trailingPE')
     
-    # FIX BUG DIVIDEN: yfinance kadang kasih desimal (0.03), kadang persen (3.0)
-    div_yield = info.get('dividendYield', 0) or 0
-    if div_yield > 1: 
-        div_yield = div_yield / 100  # Jika > 1, berarti sudah dalam bentuk persen, bagi 100
+    # FIX BUG DIVIDEN
+    div_yield = info.get('dividendYield', 0)
+    if div_yield is None:
+        div_yield = 0
+    div_yield = float(div_yield)
+    
+    if div_yield > 0.5:
+        if div_yield > 50:
+            div_yield = div_yield / 100
+    # else: sudah dalam desimal (0.03 = 3%)
     
     # 2. Accumulation Detection
     recent_14 = hist.tail(14)
@@ -43,11 +48,15 @@ def analyze_ticker(ticker, category):
     
     profit_pct = ((target_sell - buy_zone) / buy_zone) * 100
 
-    # Logika Verdict yang lebih aman
+    # Logika Verdict
     if pe_ratio:
         pe_float = float(pe_ratio)
-        verdict = "MURAH" if pe_float < 18 else "WAJAR" if pe_float < 25 else "MAHAL"
-        pe_display = round(pe_float, 2)
+        if pe_float < 0:
+            verdict = "N/A (ETF)"
+            pe_display = "N/A"
+        else:
+            pe_display = round(pe_float, 2)
+            verdict = "MURAH" if pe_float < 18 else "WAJAR" if pe_float < 25 else "MAHAL"
     else:
         verdict = "N/A (ETF)"
         pe_display = "N/A"
@@ -59,7 +68,7 @@ def analyze_ticker(ticker, category):
         "current_price": round(current_price, 2),
         "fundamental": {
             "pe_ratio": pe_display,
-            "dividend_yield": f"{div_yield * 100:.2f}%", # Sekarang akan jadi 3.24% bukan 324%
+            "dividend_yield": f"{div_yield * 100:.2f}%",
             "verdict": verdict
         },
         "collector_status": {

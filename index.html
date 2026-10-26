@@ -17,7 +17,6 @@
 }
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.4}
 
-/* HEADER */
 .header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
 .logo{font-size:16px;font-weight:700;color:var(--blue);white-space:nowrap;display:flex;align-items:center;gap:6px}
 .search-box{flex:1;min-width:0}
@@ -26,7 +25,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .search-box input::placeholder{color:var(--text3)}
 .badge-dark{font-size:12px;color:var(--text2);white-space:nowrap;display:flex;align-items:center;gap:4px}
 
-/* STATS */
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border)}
 .stat{background:var(--bg2);padding:10px 14px;display:flex;align-items:center;gap:10px}
 .stat-icon{font-size:18px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--bg3);border-radius:6px;flex-shrink:0}
@@ -34,7 +32,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .stat-label{font-size:11px;color:var(--text3)}
 .stat-value{font-size:16px;font-weight:700;color:var(--blue)}
 
-/* FILTERS */
 .filters{background:var(--bg2);padding:8px 12px;display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid var(--border);scrollbar-width:none}
 .filters::-webkit-scrollbar{display:none}
 .fbtn{padding:6px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:16px;color:var(--text2);font-size:12px;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0}
@@ -43,20 +40,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .fbtn.ready{background:var(--green-bg);border-color:var(--green);color:var(--green)}
 .fbtn.ready.active{background:var(--green);color:#fff}
 
-/* SORTS */
 .sorts{background:var(--bg2);padding:6px 12px;display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid var(--border);scrollbar-width:none}
 .sorts::-webkit-scrollbar{display:none}
 .sbtn{padding:5px 10px;background:transparent;border:1px solid var(--border);border-radius:4px;color:var(--text3);font-size:11px;cursor:pointer;white-space:nowrap;flex-shrink:0}
 .sbtn:hover{border-color:var(--blue);color:var(--text)}
 .sbtn.active{background:var(--bg3);border-color:var(--blue);color:var(--blue)}
 
-/* GRID */
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:12px;max-width:1400px;margin:0 auto}
 @media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr);gap:12px;padding:16px}}
 @media(min-width:1024px){.grid{grid-template-columns:repeat(4,1fr)}}
 @media(min-width:1280px){.grid{grid-template-columns:repeat(5,1fr)}}
 
-/* CARD */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .2s}
 .card:hover{border-color:var(--blue);transform:translateY(-2px)}
 .card.ready{border-color:var(--green)}
@@ -72,13 +66,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .b-acc{background:var(--green-bg);color:var(--green);border:1px solid var(--green);animation:pulse 2s infinite}
 .b-ready{background:var(--orange-bg);color:var(--orange);border:1px solid var(--orange)}
 .b-neu{background:var(--bg3);color:var(--text3);border:1px solid var(--border)}
+.b-score{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
 .card-stats{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding-top:6px;border-top:1px solid var(--border)}
 .cs-l{font-size:9px;color:var(--text3)}
 .cs-v{font-size:11px;font-weight:600;color:var(--text)}
 .cs-v.grn{color:var(--green)}.cs-v.org{color:var(--orange)}
 
-/* MODAL */
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;justify-content:center;align-items:flex-end;backdrop-filter:blur(2px)}
 .modal.active{display:flex}
 .modal-content{background:var(--bg2);width:100%;max-width:560px;max-height:85vh;border-radius:12px 12px 0 0;overflow-y:auto;animation:slideUp .25s ease}
@@ -115,14 +109,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 <div class="header">
   <div class="logo">📊 S&P500 Detectors</div>
   <div class="search-box"><input type="text" id="searchInput" placeholder="Cari ticker..."></div>
-  <div class="badge-dark">🌙 Dark</div>
+  <div class="badge-dark"> Dark</div>
 </div>
 
 <div class="stats">
-  <div class="stat"><div class="stat-icon"></div><div class="stat-info"><div class="stat-label">Total ETF</div><div class="stat-value" id="sTotal">0</div></div></div>
+  <div class="stat"><div class="stat-icon">📈</div><div class="stat-info"><div class="stat-label">Total ETF</div><div class="stat-value" id="sTotal">0</div></div></div>
   <div class="stat"><div class="stat-icon">🔥</div><div class="stat-info"><div class="stat-label">Akumulasi Aktif</div><div class="stat-value" id="sAccum">0</div></div></div>
   <div class="stat"><div class="stat-icon">💰</div><div class="stat-info"><div class="stat-label">Siap Akumulasi</div><div class="stat-value" id="sReady">0</div></div></div>
-  <div class="stat"><div class="stat-icon">🕐</div><div class="stat-info"><div class="stat-label">Update (WIB)</div><div class="stat-value" id="sTime" style="font-size:12px">-</div></div></div>
+  <div class="stat"><div class="stat-icon"></div><div class="stat-info"><div class="stat-label">Update (WIB)</div><div class="stat-value" id="sTime" style="font-size:12px">-</div></div></div>
 </div>
 
 <div class="filters" id="filterContainer"></div>
@@ -140,14 +134,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 </div>
 
 <script>
-// ============ STATE ============
-let allData = [];
-let filteredData = [];
-let curCat = 'all';
-let curSort = 'default';
-let searchQuery = '';
+let allData = [], filteredData = [], curCat = 'all', curSort = 'default', searchQuery = '';
 
-// ============ DEFINISI FILTER & SORT ============
 const FILTERS = [
   { id: 'all', label: 'Semua', special: false },
   { id: 'ready', label: '💰 Siap Akumulasi', special: true },
@@ -155,14 +143,13 @@ const FILTERS = [
 
 const SORTS = [
   { id: 'default', label: 'Default' },
+  { id: 'score', label: 'Swing Score' },
   { id: 'profit', label: 'Profit Tertinggi' },
   { id: 'dividend', label: 'Dividen Tertinggi' },
   { id: 'distance', label: 'Dekat Bottom' },
   { id: 'price-asc', label: 'Harga Terendah' },
-  { id: 'price-desc', label: 'Harga Tertinggi' },
 ];
 
-// ============ HELPERS ============
 const toWIB = t => {
   if (!t) return '-';
   const d = new Date(t.replace(' ', 'T') + 'Z');
@@ -182,10 +169,29 @@ const parseNum = v => {
   return isNaN(n) ? 0 : n;
 };
 
-// ============ RENDER FILTER BUTTONS ============
+function calculateSwingScore(s) {
+    let score = 0;
+    if (s.collector_status?.is_accumulating) {
+        score += 20;
+        const volPct = s.collector_status.up_vol_pct || 0;
+        if (volPct > 70) score += 15;
+        else if (volPct > 60) score += 10;
+        else if (volPct > 55) score += 5;
+    }
+    const profit = parseFloat(s.action_plan?.potential_profit) || 0;
+    if (profit > 15) score += 30; else if (profit > 10) score += 25; else if (profit > 8) score += 20; else if (profit > 6) score += 15; else if (profit > 4) score += 10; else score += 5;
+    const verdict = s.fundamental?.verdict || '';
+    if (verdict === 'MURAH') score += 20; else if (verdict === 'WAJAR') score += 15; else if (verdict.includes('N/A')) score += 10; else score += 5;
+    const distance = parseFloat(s.collector_status?.distance_from_low) || 999;
+    if (distance < 3) score += 15; else if (distance < 5) score += 12; else if (distance < 8) score += 8; else if (distance < 12) score += 5; else score += 2;
+    return {
+        total: score,
+        grade: score >= 85 ? 'A+' : score >= 75 ? 'A' : score >= 65 ? 'B+' : score >= 55 ? 'B' : score >= 45 ? 'C+' : 'C'
+    };
+}
+
 function renderFilters() {
   const container = document.getElementById('filterContainer');
-  // Tambah kategori dinamis dari data
   const cats = [...new Set(allData.map(s => s.category).filter(Boolean))];
   const allFilters = [...FILTERS, ...cats.map(c => ({ id: c, label: c, special: false }))];
 
@@ -194,17 +200,15 @@ function renderFilters() {
     return `<button class="${cls}" data-cat="${f.id}">${f.label}</button>`;
   }).join('');
 
-  // Pasang event listener ke SEMUA tombol
   container.querySelectorAll('.fbtn').forEach(btn => {
     btn.addEventListener('click', () => {
       curCat = btn.dataset.cat;
-      renderFilters(); // re-render untuk update class active
+      renderFilters();
       applyFilters();
     });
   });
 }
 
-// ============ RENDER SORT BUTTONS ============
 function renderSorts() {
   const container = document.getElementById('sortContainer');
   container.innerHTML = SORTS.map(s => {
@@ -221,7 +225,6 @@ function renderSorts() {
   });
 }
 
-// ============ UPDATE STATS ============
 function updateStats(d) {
   document.getElementById('sTotal').textContent = d.total_etf || allData.length;
   document.getElementById('sAccum').textContent = allData.filter(s => s.collector_status?.is_accumulating).length;
@@ -229,18 +232,15 @@ function updateStats(d) {
   document.getElementById('sTime').textContent = toWIB(d.last_updated);
 }
 
-// ============ APPLY FILTERS & SORT ============
 function applyFilters() {
   const q = searchQuery.toLowerCase();
 
   filteredData = allData.filter(s => {
-    // Filter kategori
     let matchCat = false;
     if (curCat === 'all') matchCat = true;
     else if (curCat === 'ready') matchCat = isReady(s);
     else matchCat = s.category === curCat;
 
-    // Filter search
     const matchSearch = !q ||
       (s.ticker && s.ticker.toLowerCase().includes(q)) ||
       (s.name && s.name.toLowerCase().includes(q));
@@ -248,14 +248,13 @@ function applyFilters() {
     return matchCat && matchSearch;
   });
 
-  // Sort
   const sorters = {
     'default': () => 0,
+    'score': (a, b) => calculateSwingScore(b).total - calculateSwingScore(a).total,
     'profit': (a, b) => parseNum(b.action_plan?.potential_profit) - parseNum(a.action_plan?.potential_profit),
     'dividend': (a, b) => parseNum(b.fundamental?.dividend_yield) - parseNum(a.fundamental?.dividend_yield),
     'distance': (a, b) => parseNum(a.collector_status?.distance_from_low) - parseNum(b.collector_status?.distance_from_low),
     'price-asc': (a, b) => (a.current_price || 0) - (b.current_price || 0),
-    'price-desc': (a, b) => (b.current_price || 0) - (a.current_price || 0),
   };
 
   const sorter = sorters[curSort] || sorters['default'];
@@ -266,12 +265,11 @@ function applyFilters() {
   renderGrid();
 }
 
-// ============ RENDER GRID ============
 function renderGrid() {
   const g = document.getElementById('grid');
 
   if (!filteredData.length) {
-    g.innerHTML = '<div class="empty">🔍 Tidak ada data yang cocok</div>';
+    g.innerHTML = '<div class="empty"> Tidak ada data yang cocok</div>';
     return;
   }
 
@@ -282,6 +280,7 @@ function renderGrid() {
     const pe = s.fundamental?.pe_ratio || 'N/A';
     const profit = s.action_plan?.potential_profit || 'N/A';
     const upVol = s.collector_status?.up_vol_pct ?? 0;
+    const scoreData = calculateSwingScore(s);
 
     return `<div class="card${ready ? ' ready' : ''}" onclick="openModal('${s.ticker}')">
       <div class="card-top">
@@ -292,8 +291,9 @@ function renderGrid() {
         <div class="card-name">${s.name || '-'}</div>
         <div class="card-badges">
           <span class="badge b-cat">${s.category || '-'}</span>
-          ${acc ? '<span class="badge b-acc">🔥 Akumulasi</span>' : '<span class="badge b-neu">⚪ Netral</span>'}
-          ${ready && !acc ? '<span class="badge b-ready">💰 Siap</span>' : ''}
+          ${acc ? '<span class="badge b-acc">🔥 Akumulasi</span>' : '<span class="badge b-neu"> Netral</span>'}
+          ${ready && !acc ? '<span class="badge b-ready"> Siap</span>' : ''}
+          <span class="badge b-score">Score: ${scoreData.total} (${scoreData.grade})</span>
         </div>
         <div class="card-stats">
           <div><div class="cs-l">P/E</div><div class="cs-v">${pe}</div></div>
@@ -306,7 +306,6 @@ function renderGrid() {
   }).join('');
 }
 
-// ============ MODAL ============
 function openModal(ticker) {
   const s = allData.find(x => x.ticker === ticker);
   if (!s) return;
@@ -314,7 +313,7 @@ function openModal(ticker) {
 
   document.getElementById('mTitle').textContent = `${s.ticker} — ${s.name || ''}`;
   document.getElementById('mBody').innerHTML = `
-    ${ready ? '<div class="banner"> ETF ini siap diakumulasi — Harga dekat bottom atau terdeteksi akumulasi bandar</div>' : ''}
+    ${ready ? '<div class="banner">💰 ETF ini siap diakumulasi — Harga dekat bottom atau terdeteksi akumulasi bandar</div>' : ''}
 
     <div class="m-sec">
       <div class="m-title">📊 Informasi Dasar</div>
@@ -362,7 +361,6 @@ function closeModal() {
   document.getElementById('modal').classList.remove('active');
 }
 
-// ============ FETCH DATA ============
 async function fetchData() {
   try {
     const r = await fetch('data.json?t=' + Date.now());
@@ -373,14 +371,13 @@ async function fetchData() {
     updateStats(d);
     renderFilters();
     renderSorts();
-    applyFilters(); // ← INI YANG MEMBUAT DATA LANGSUNG TAMPIL
+    applyFilters();
   } catch (e) {
     console.error(e);
-    document.getElementById('grid').innerHTML = '<div class="empty">⚠️ Gagal memuat data. Periksa data.json.</div>';
+    document.getElementById('grid').innerHTML = '<div class="empty">️ Gagal memuat data. Periksa data.json.</div>';
   }
 }
 
-// ============ EVENT LISTENERS ============
 document.getElementById('searchInput').addEventListener('input', e => {
   searchQuery = e.target.value;
   applyFilters();
@@ -394,7 +391,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
 
-// ============ INIT ============
 fetchData();
 </script>
 </body>

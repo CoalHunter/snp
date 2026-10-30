@@ -1,313 +1,313 @@
 {
-    "last_updated": "2026-10-29 11:14:54",
+    "last_updated": "2026-10-30 11:09:12",
     "total_etf": 50,
     "stocks": [
         {
             "ticker": "SCHD",
             "name": "Schwab US Dividend Equity ETF",
             "category": "Dividen Growth",
-            "current_price": 35.09,
+            "current_price": 35.61,
             "fundamental": {
-                "pe_ratio": 19.6,
+                "pe_ratio": 19.89,
                 "dividend_yield": "324.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
-                "is_accumulating": true,
-                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 80.5,
-                "distance_from_low": "8.4%"
+                "is_accumulating": false,
+                "status_text": "\u26aa NETRAL",
+                "up_vol_pct": 86.4,
+                "distance_from_low": "10.0%"
             },
             "action_plan": {
                 "buy_zone": 32.68,
-                "target_sell": 37.2,
+                "target_sell": 37.75,
                 "stop_loss": 31.39,
-                "potential_profit": "13.8%"
+                "potential_profit": "15.5%"
             }
         },
         {
             "ticker": "VIG",
             "name": "Vanguard Div Appreciation ETF",
             "category": "Dividen Growth",
-            "current_price": 245.96,
+            "current_price": 249.16,
             "fundamental": {
-                "pe_ratio": 25.72,
+                "pe_ratio": 26.05,
                 "dividend_yield": "156.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 70.7,
-                "distance_from_low": "5.9%"
+                "up_vol_pct": 70.5,
+                "distance_from_low": "7.3%"
             },
             "action_plan": {
                 "buy_zone": 234.63,
-                "target_sell": 260.72,
+                "target_sell": 264.11,
                 "stop_loss": 225.34,
-                "potential_profit": "11.1%"
+                "potential_profit": "12.6%"
             }
         },
         {
             "ticker": "DGRO",
             "name": "iShares Core Dividend Growth ET",
             "category": "Dividen Growth",
-            "current_price": 80.1,
+            "current_price": 81.22,
             "fundamental": {
-                "pe_ratio": 22.87,
+                "pe_ratio": 23.19,
                 "dividend_yield": "198.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 63.8,
-                "distance_from_low": "6.7%"
+                "up_vol_pct": 64.2,
+                "distance_from_low": "8.2%"
             },
             "action_plan": {
                 "buy_zone": 75.79,
-                "target_sell": 84.91,
+                "target_sell": 86.09,
                 "stop_loss": 72.79,
-                "potential_profit": "12.0%"
+                "potential_profit": "13.6%"
             }
         },
         {
             "ticker": "NOBL",
             "name": "ProShares S&P 500 Dividend Aris",
             "category": "Dividen Growth",
-            "current_price": 57.98,
+            "current_price": 58.86,
             "fundamental": {
-                "pe_ratio": 22.95,
+                "pe_ratio": 23.3,
                 "dividend_yield": "217.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 60.6,
-                "distance_from_low": "7.7%"
+                "up_vol_pct": 60.5,
+                "distance_from_low": "9.3%"
             },
             "action_plan": {
                 "buy_zone": 54.37,
-                "target_sell": 61.46,
+                "target_sell": 62.39,
                 "stop_loss": 52.22,
-                "potential_profit": "13.0%"
+                "potential_profit": "14.8%"
             }
         },
         {
             "ticker": "DVY",
             "name": "iShares Select Dividend ETF",
             "category": "Dividen Growth",
-            "current_price": 159.75,
+            "current_price": 162.23,
             "fundamental": {
-                "pe_ratio": 15.41,
+                "pe_ratio": 15.65,
                 "dividend_yield": "351.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 46.3,
-                "distance_from_low": "6.0%"
+                "up_vol_pct": 51.8,
+                "distance_from_low": "7.6%"
             },
             "action_plan": {
                 "buy_zone": 152.23,
-                "target_sell": 169.34,
+                "target_sell": 171.96,
                 "stop_loss": 146.2,
-                "potential_profit": "11.2%"
+                "potential_profit": "13.0%"
             }
         },
         {
             "ticker": "HDV",
             "name": "iShares Core High Dividend ETF",
             "category": "Dividen Growth",
-            "current_price": 30.21,
+            "current_price": 30.7,
             "fundamental": {
-                "pe_ratio": 21.36,
+                "pe_ratio": 21.7,
                 "dividend_yield": "305.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
-                "is_accumulating": true,
-                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 77.9,
-                "distance_from_low": "9.1%"
+                "is_accumulating": false,
+                "status_text": "\u26aa NETRAL",
+                "up_vol_pct": 78.9,
+                "distance_from_low": "10.9%"
             },
             "action_plan": {
                 "buy_zone": 27.96,
-                "target_sell": 32.02,
+                "target_sell": 32.54,
                 "stop_loss": 26.85,
-                "potential_profit": "14.5%"
+                "potential_profit": "16.4%"
             }
         },
         {
             "ticker": "SPY",
             "name": "State Street SPDR S&P 500 ETF T",
             "category": "Broad Market",
-            "current_price": 772.31,
+            "current_price": 769.36,
             "fundamental": {
-                "pe_ratio": 24.52,
+                "pe_ratio": 24.43,
                 "dividend_yield": "99.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 55.0,
-                "distance_from_low": "3.3%"
+                "up_vol_pct": 56.4,
+                "distance_from_low": "2.9%"
             },
             "action_plan": {
                 "buy_zone": 765.55,
-                "target_sell": 818.65,
+                "target_sell": 815.52,
                 "stop_loss": 735.23,
-                "potential_profit": "6.9%"
+                "potential_profit": "6.5%"
             }
         },
         {
             "ticker": "VOO",
             "name": "Vanguard S&P 500 ETF",
             "category": "Broad Market",
-            "current_price": 709.9,
+            "current_price": 707.32,
             "fundamental": {
-                "pe_ratio": 24.52,
+                "pe_ratio": 24.43,
                 "dividend_yield": "106.00%",
-                "verdict": "WAJAR"
-            },
-            "collector_status": {
-                "is_accumulating": true,
-                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 63.1,
-                "distance_from_low": "3.3%"
-            },
-            "action_plan": {
-                "buy_zone": 703.68,
-                "target_sell": 752.49,
-                "stop_loss": 675.81,
-                "potential_profit": "6.9%"
-            }
-        },
-        {
-            "ticker": "IVV",
-            "name": "iShares Core S&P 500 ETF",
-            "category": "Broad Market",
-            "current_price": 775.65,
-            "fundamental": {
-                "pe_ratio": 24.52,
-                "dividend_yield": "110.00%",
-                "verdict": "WAJAR"
-            },
-            "collector_status": {
-                "is_accumulating": true,
-                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 58.4,
-                "distance_from_low": "3.3%"
-            },
-            "action_plan": {
-                "buy_zone": 768.92,
-                "target_sell": 822.19,
-                "stop_loss": 738.47,
-                "potential_profit": "6.9%"
-            }
-        },
-        {
-            "ticker": "RSP",
-            "name": "Invesco S&P 500 Equal Weight ET",
-            "category": "Broad Market",
-            "current_price": 217.43,
-            "fundamental": {
-                "pe_ratio": 21.17,
-                "dividend_yield": "153.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
                 "up_vol_pct": 63.4,
-                "distance_from_low": "5.0%"
+                "distance_from_low": "2.9%"
+            },
+            "action_plan": {
+                "buy_zone": 703.68,
+                "target_sell": 749.76,
+                "stop_loss": 675.81,
+                "potential_profit": "6.5%"
+            }
+        },
+        {
+            "ticker": "IVV",
+            "name": "iShares Core S&P 500 ETF",
+            "category": "Broad Market",
+            "current_price": 772.97,
+            "fundamental": {
+                "pe_ratio": 24.43,
+                "dividend_yield": "110.00%",
+                "verdict": "WAJAR"
+            },
+            "collector_status": {
+                "is_accumulating": true,
+                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
+                "up_vol_pct": 59.0,
+                "distance_from_low": "2.9%"
+            },
+            "action_plan": {
+                "buy_zone": 768.92,
+                "target_sell": 819.35,
+                "stop_loss": 738.47,
+                "potential_profit": "6.6%"
+            }
+        },
+        {
+            "ticker": "RSP",
+            "name": "Invesco S&P 500 Equal Weight ET",
+            "category": "Broad Market",
+            "current_price": 220.04,
+            "fundamental": {
+                "pe_ratio": 21.43,
+                "dividend_yield": "153.00%",
+                "verdict": "WAJAR"
+            },
+            "collector_status": {
+                "is_accumulating": true,
+                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
+                "up_vol_pct": 64.0,
+                "distance_from_low": "6.2%"
             },
             "action_plan": {
                 "buy_zone": 209.23,
-                "target_sell": 230.48,
+                "target_sell": 233.24,
                 "stop_loss": 200.95,
-                "potential_profit": "10.2%"
+                "potential_profit": "11.5%"
             }
         },
         {
             "ticker": "VTI",
             "name": "Vanguard Morningstar Total Stoc",
             "category": "Broad Market",
-            "current_price": 379.17,
+            "current_price": 378.24,
             "fundamental": {
-                "pe_ratio": 23.96,
+                "pe_ratio": 23.9,
                 "dividend_yield": "106.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 55.4,
-                "distance_from_low": "3.0%"
+                "up_vol_pct": 55.3,
+                "distance_from_low": "2.8%"
             },
             "action_plan": {
                 "buy_zone": 375.9,
-                "target_sell": 401.92,
+                "target_sell": 400.93,
                 "stop_loss": 361.01,
-                "potential_profit": "6.9%"
+                "potential_profit": "6.7%"
             }
         },
         {
             "ticker": "QQQ",
             "name": "Invesco QQQ Trust, Series 1",
             "category": "Tech & Growth",
-            "current_price": 725.61,
+            "current_price": 715.34,
             "fundamental": {
-                "pe_ratio": 27.78,
+                "pe_ratio": 27.39,
                 "dividend_yield": "42.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 49.8,
-                "distance_from_low": "3.8%"
+                "up_vol_pct": 48.4,
+                "distance_from_low": "2.3%"
             },
             "action_plan": {
                 "buy_zone": 708.17,
-                "target_sell": 769.15,
+                "target_sell": 762.86,
                 "stop_loss": 680.13,
-                "potential_profit": "8.6%"
+                "potential_profit": "7.7%"
             }
         },
         {
             "ticker": "QQQM",
             "name": "Invesco NASDAQ 100 ETF",
             "category": "Tech & Growth",
-            "current_price": 298.71,
+            "current_price": 294.53,
             "fundamental": {
-                "pe_ratio": 27.77,
+                "pe_ratio": 27.38,
                 "dividend_yield": "43.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
-                "is_accumulating": true,
-                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 55.3,
-                "distance_from_low": "3.7%"
+                "is_accumulating": false,
+                "status_text": "\u26aa NETRAL",
+                "up_vol_pct": 54.2,
+                "distance_from_low": "2.3%"
             },
             "action_plan": {
                 "buy_zone": 291.63,
-                "target_sell": 316.63,
+                "target_sell": 314.11,
                 "stop_loss": 280.08,
-                "potential_profit": "8.6%"
+                "potential_profit": "7.7%"
             }
         },
         {
             "ticker": "VGT",
             "name": "Vanguard Information Tech ETF",
             "category": "Tech & Growth",
-            "current_price": 123.59,
+            "current_price": 122.24,
             "fundamental": {
-                "pe_ratio": 30.8,
+                "pe_ratio": 30.46,
                 "dividend_yield": "38.00%",
                 "verdict": "MAHAL"
             },
@@ -315,30 +315,30 @@
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
                 "up_vol_pct": 54.1,
-                "distance_from_low": "6.7%"
+                "distance_from_low": "5.6%"
             },
             "action_plan": {
                 "buy_zone": 119.29,
-                "target_sell": 131.01,
+                "target_sell": 130.66,
                 "stop_loss": 114.57,
-                "potential_profit": "9.8%"
+                "potential_profit": "9.5%"
             }
         },
         {
             "ticker": "XLK",
             "name": "State Street Technology Select ",
             "category": "Tech & Growth",
-            "current_price": 191.0,
+            "current_price": 188.74,
             "fundamental": {
-                "pe_ratio": 31.28,
+                "pe_ratio": 30.91,
                 "dividend_yield": "43.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 54.1,
-                "distance_from_low": "6.9%"
+                "up_vol_pct": 53.3,
+                "distance_from_low": "5.7%"
             },
             "action_plan": {
                 "buy_zone": 183.31,
@@ -351,17 +351,17 @@
             "ticker": "SMH",
             "name": "VanEck Semiconductor ETF",
             "category": "Tech & Growth",
-            "current_price": 567.67,
+            "current_price": 561.67,
             "fundamental": {
-                "pe_ratio": 30.33,
+                "pe_ratio": 30.01,
                 "dividend_yield": "18.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
-                "is_accumulating": false,
-                "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 51.8,
-                "distance_from_low": "9.1%"
+                "is_accumulating": true,
+                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
+                "up_vol_pct": 56.1,
+                "distance_from_low": "7.9%"
             },
             "action_plan": {
                 "buy_zone": 525.74,
@@ -374,17 +374,17 @@
             "ticker": "SOXX",
             "name": "iShares PHLX SOX Semiconductor ",
             "category": "Tech & Growth",
-            "current_price": 521.94,
+            "current_price": 513.86,
             "fundamental": {
-                "pe_ratio": 30.68,
+                "pe_ratio": 30.21,
                 "dividend_yield": "22.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
-                "is_accumulating": false,
-                "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 55.8,
-                "distance_from_low": "10.5%"
+                "is_accumulating": true,
+                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
+                "up_vol_pct": 59.8,
+                "distance_from_low": "8.8%"
             },
             "action_plan": {
                 "buy_zone": 476.93,
@@ -397,17 +397,17 @@
             "ticker": "ARKK",
             "name": "ARK Innovation ETF",
             "category": "Tech & Growth",
-            "current_price": 86.12,
+            "current_price": 85.97,
             "fundamental": {
-                "pe_ratio": 55.58,
+                "pe_ratio": 55.49,
                 "dividend_yield": "0.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 64.2,
-                "distance_from_low": "6.9%"
+                "up_vol_pct": 62.2,
+                "distance_from_low": "6.5%"
             },
             "action_plan": {
                 "buy_zone": 81.51,
@@ -420,339 +420,339 @@
             "ticker": "XLF",
             "name": "State Street Financial Select S",
             "category": "Sektor",
-            "current_price": 56.13,
+            "current_price": 56.94,
             "fundamental": {
-                "pe_ratio": 16.0,
+                "pe_ratio": 16.23,
                 "dividend_yield": "155.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 55.1,
-                "distance_from_low": "6.3%"
+                "up_vol_pct": 54.8,
+                "distance_from_low": "7.8%"
             },
             "action_plan": {
                 "buy_zone": 53.34,
-                "target_sell": 59.5,
+                "target_sell": 60.36,
                 "stop_loss": 51.23,
-                "potential_profit": "11.5%"
+                "potential_profit": "13.2%"
             }
         },
         {
             "ticker": "XLV",
             "name": "State Street Health Care Select",
             "category": "Sektor",
-            "current_price": 179.72,
+            "current_price": 184.04,
             "fundamental": {
-                "pe_ratio": 32.05,
+                "pe_ratio": 32.82,
                 "dividend_yield": "152.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
-                "is_accumulating": true,
-                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 67.2,
-                "distance_from_low": "9.3%"
+                "is_accumulating": false,
+                "status_text": "\u26aa NETRAL",
+                "up_vol_pct": 69.3,
+                "distance_from_low": "11.9%"
             },
             "action_plan": {
                 "buy_zone": 166.84,
-                "target_sell": 190.5,
+                "target_sell": 195.08,
                 "stop_loss": 160.23,
-                "potential_profit": "14.2%"
+                "potential_profit": "16.9%"
             }
         },
         {
             "ticker": "XLE",
             "name": "State Street Energy Select Sect",
             "category": "Sektor",
-            "current_price": 68.45,
+            "current_price": 68.71,
             "fundamental": {
-                "pe_ratio": 19.5,
+                "pe_ratio": 19.57,
                 "dividend_yield": "248.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 53.8,
-                "distance_from_low": "12.3%"
+                "up_vol_pct": 47.8,
+                "distance_from_low": "12.7%"
             },
             "action_plan": {
                 "buy_zone": 61.56,
-                "target_sell": 72.56,
+                "target_sell": 72.83,
                 "stop_loss": 59.12,
-                "potential_profit": "17.9%"
+                "potential_profit": "18.3%"
             }
         },
         {
             "ticker": "XLI",
             "name": "State Street Industrial Select ",
             "category": "Sektor",
-            "current_price": 168.49,
+            "current_price": 170.13,
             "fundamental": {
-                "pe_ratio": 27.68,
+                "pe_ratio": 27.95,
                 "dividend_yield": "113.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 36.1,
-                "distance_from_low": "3.4%"
+                "up_vol_pct": 38.4,
+                "distance_from_low": "4.4%"
             },
             "action_plan": {
                 "buy_zone": 164.6,
-                "target_sell": 178.6,
+                "target_sell": 180.34,
                 "stop_loss": 158.08,
-                "potential_profit": "8.5%"
+                "potential_profit": "9.6%"
             }
         },
         {
             "ticker": "XLC",
             "name": "State Street Communication Serv",
             "category": "Sektor",
-            "current_price": 103.14,
+            "current_price": 101.21,
             "fundamental": {
-                "pe_ratio": 15.13,
+                "pe_ratio": 14.85,
                 "dividend_yield": "124.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 34.3,
-                "distance_from_low": "0.5%"
+                "up_vol_pct": 43.3,
+                "distance_from_low": "1.1%"
             },
             "action_plan": {
-                "buy_zone": 103.65,
+                "buy_zone": 101.13,
                 "target_sell": 115.61,
-                "stop_loss": 99.54,
-                "potential_profit": "11.5%"
+                "stop_loss": 97.13,
+                "potential_profit": "14.3%"
             }
         },
         {
             "ticker": "XLY",
             "name": "State Street Consumer Discretio",
             "category": "Sektor",
-            "current_price": 115.33,
+            "current_price": 116.2,
             "fundamental": {
-                "pe_ratio": 25.44,
+                "pe_ratio": 25.63,
                 "dividend_yield": "86.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 52.7,
-                "distance_from_low": "6.8%"
+                "up_vol_pct": 52.5,
+                "distance_from_low": "7.6%"
             },
             "action_plan": {
                 "buy_zone": 109.07,
-                "target_sell": 122.25,
+                "target_sell": 123.17,
                 "stop_loss": 104.75,
-                "potential_profit": "12.1%"
+                "potential_profit": "12.9%"
             }
         },
         {
             "ticker": "XLP",
             "name": "State Street Consumer Staples S",
             "category": "Sektor",
-            "current_price": 86.84,
+            "current_price": 88.18,
             "fundamental": {
-                "pe_ratio": 25.77,
+                "pe_ratio": 26.17,
                 "dividend_yield": "273.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
-                "is_accumulating": true,
-                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 54.8,
-                "distance_from_low": "8.4%"
+                "is_accumulating": false,
+                "status_text": "\u26aa NETRAL",
+                "up_vol_pct": 56.3,
+                "distance_from_low": "10.1%"
             },
             "action_plan": {
                 "buy_zone": 80.9,
-                "target_sell": 92.05,
+                "target_sell": 93.47,
                 "stop_loss": 77.7,
-                "potential_profit": "13.8%"
+                "potential_profit": "15.5%"
             }
         },
         {
             "ticker": "XLRE",
             "name": "State Street Real Estate Select",
             "category": "Sektor",
-            "current_price": 42.13,
+            "current_price": 43.06,
             "fundamental": {
-                "pe_ratio": 30.07,
+                "pe_ratio": 30.74,
                 "dividend_yield": "353.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 37.2,
-                "distance_from_low": "4.6%"
+                "up_vol_pct": 37.0,
+                "distance_from_low": "6.9%"
             },
             "action_plan": {
                 "buy_zone": 40.69,
-                "target_sell": 44.66,
+                "target_sell": 45.64,
                 "stop_loss": 39.08,
-                "potential_profit": "9.8%"
+                "potential_profit": "12.2%"
             }
         },
         {
             "ticker": "XLU",
             "name": "State Street Utilities Select S",
             "category": "Sektor",
-            "current_price": 42.49,
+            "current_price": 43.14,
             "fundamental": {
-                "pe_ratio": 19.24,
+                "pe_ratio": 19.54,
                 "dividend_yield": "307.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 49.7,
-                "distance_from_low": "8.9%"
+                "up_vol_pct": 50.8,
+                "distance_from_low": "10.5%"
             },
             "action_plan": {
                 "buy_zone": 39.42,
-                "target_sell": 45.04,
+                "target_sell": 45.73,
                 "stop_loss": 37.86,
-                "potential_profit": "14.3%"
+                "potential_profit": "16.0%"
             }
         },
         {
             "ticker": "XLB",
             "name": "State Street Materials Select S",
             "category": "Sektor",
-            "current_price": 51.86,
+            "current_price": 52.53,
             "fundamental": {
-                "pe_ratio": 24.17,
+                "pe_ratio": 24.48,
                 "dividend_yield": "177.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 74.8,
-                "distance_from_low": "8.5%"
+                "up_vol_pct": 81.2,
+                "distance_from_low": "9.9%"
             },
             "action_plan": {
                 "buy_zone": 48.29,
-                "target_sell": 54.97,
+                "target_sell": 55.68,
                 "stop_loss": 46.38,
-                "potential_profit": "13.8%"
+                "potential_profit": "15.3%"
             }
         },
         {
             "ticker": "IWM",
             "name": "iShares Russell 2000 Index Fund",
             "category": "Small Cap",
-            "current_price": 281.29,
+            "current_price": 284.01,
             "fundamental": {
-                "pe_ratio": 16.55,
+                "pe_ratio": 16.71,
                 "dividend_yield": "98.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 53.8,
-                "distance_from_low": "4.2%"
+                "up_vol_pct": 54.2,
+                "distance_from_low": "5.2%"
             },
             "action_plan": {
                 "buy_zone": 272.58,
-                "target_sell": 298.17,
+                "target_sell": 301.05,
                 "stop_loss": 261.78,
-                "potential_profit": "9.4%"
+                "potential_profit": "10.4%"
             }
         },
         {
             "ticker": "VB",
             "name": "Vanguard Morningstar Small-Cap ",
             "category": "Small Cap",
-            "current_price": 290.9,
+            "current_price": 294.71,
             "fundamental": {
-                "pe_ratio": 19.45,
+                "pe_ratio": 19.7,
                 "dividend_yield": "128.00%",
                 "verdict": "WAJAR"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 56.7,
-                "distance_from_low": "3.0%"
+                "up_vol_pct": 57.5,
+                "distance_from_low": "4.4%"
             },
             "action_plan": {
                 "buy_zone": 285.2,
-                "target_sell": 308.35,
+                "target_sell": 312.39,
                 "stop_loss": 273.91,
-                "potential_profit": "8.1%"
+                "potential_profit": "9.5%"
             }
         },
         {
             "ticker": "VXUS",
             "name": "Vanguard Total International St",
             "category": "International",
-            "current_price": 83.75,
+            "current_price": 83.65,
             "fundamental": {
-                "pe_ratio": 15.82,
+                "pe_ratio": 15.8,
                 "dividend_yield": "234.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 59.3,
-                "distance_from_low": "2.0%"
+                "up_vol_pct": 59.5,
+                "distance_from_low": "1.9%"
             },
             "action_plan": {
                 "buy_zone": 82.89,
-                "target_sell": 88.78,
+                "target_sell": 88.67,
                 "stop_loss": 79.61,
-                "potential_profit": "7.1%"
+                "potential_profit": "7.0%"
             }
         },
         {
             "ticker": "VEA",
             "name": "Vanguard FTSE Developed Markets",
             "category": "International",
-            "current_price": 70.34,
+            "current_price": 70.47,
             "fundamental": {
-                "pe_ratio": 15.93,
+                "pe_ratio": 15.96,
                 "dividend_yield": "241.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 60.4,
-                "distance_from_low": "2.5%"
+                "up_vol_pct": 61.3,
+                "distance_from_low": "2.7%"
             },
             "action_plan": {
                 "buy_zone": 69.3,
-                "target_sell": 74.56,
+                "target_sell": 74.7,
                 "stop_loss": 66.55,
-                "potential_profit": "7.6%"
+                "potential_profit": "7.8%"
             }
         },
         {
             "ticker": "VWO",
             "name": "Vanguard FTSE Emerging Markets ",
             "category": "International",
-            "current_price": 57.02,
+            "current_price": 56.6,
             "fundamental": {
-                "pe_ratio": 15.5,
+                "pe_ratio": 15.39,
                 "dividend_yield": "205.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 45.6,
-                "distance_from_low": "1.7%"
+                "up_vol_pct": 54.0,
+                "distance_from_low": "1.0%"
             },
             "action_plan": {
                 "buy_zone": 56.61,
@@ -765,40 +765,40 @@
             "ticker": "EFA",
             "name": "iShares MSCI EAFE ETF",
             "category": "International",
-            "current_price": 103.68,
+            "current_price": 104.35,
             "fundamental": {
-                "pe_ratio": 17.15,
+                "pe_ratio": 17.26,
                 "dividend_yield": "324.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 45.2,
-                "distance_from_low": "1.6%"
+                "up_vol_pct": 46.0,
+                "distance_from_low": "2.3%"
             },
             "action_plan": {
                 "buy_zone": 103.02,
-                "target_sell": 109.9,
+                "target_sell": 110.61,
                 "stop_loss": 98.94,
-                "potential_profit": "6.7%"
+                "potential_profit": "7.4%"
             }
         },
         {
             "ticker": "EEM",
             "name": "iShares MSCI Emerging Index Fun",
             "category": "International",
-            "current_price": 63.52,
+            "current_price": 62.72,
             "fundamental": {
-                "pe_ratio": 13.62,
+                "pe_ratio": 13.45,
                 "dividend_yield": "167.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
-                "is_accumulating": false,
-                "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 50.3,
-                "distance_from_low": "3.7%"
+                "is_accumulating": true,
+                "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
+                "up_vol_pct": 56.5,
+                "distance_from_low": "2.4%"
             },
             "action_plan": {
                 "buy_zone": 61.86,
@@ -811,7 +811,7 @@
             "ticker": "BND",
             "name": "Vanguard Total Bond Market ETF",
             "category": "Bond",
-            "current_price": 71.19,
+            "current_price": 71.38,
             "fundamental": {
                 "pe_ratio": "N/A",
                 "dividend_yield": "417.00%",
@@ -820,44 +820,44 @@
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 51.8,
-                "distance_from_low": "2.2%"
+                "up_vol_pct": 51.2,
+                "distance_from_low": "2.5%"
             },
             "action_plan": {
                 "buy_zone": 70.35,
-                "target_sell": 75.46,
+                "target_sell": 75.66,
                 "stop_loss": 67.56,
-                "potential_profit": "7.3%"
+                "potential_profit": "7.5%"
             }
         },
         {
             "ticker": "AGG",
             "name": "iShares Core U.S. Aggregate Bon",
             "category": "Bond",
-            "current_price": 95.89,
+            "current_price": 96.15,
             "fundamental": {
-                "pe_ratio": 122.31,
+                "pe_ratio": "N/A",
                 "dividend_yield": "419.00%",
-                "verdict": "MAHAL"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 45.0,
-                "distance_from_low": "2.2%"
+                "up_vol_pct": 37.8,
+                "distance_from_low": "2.5%"
             },
             "action_plan": {
                 "buy_zone": 94.78,
-                "target_sell": 101.64,
+                "target_sell": 101.92,
                 "stop_loss": 91.02,
-                "potential_profit": "7.2%"
+                "potential_profit": "7.5%"
             }
         },
         {
             "ticker": "TLT",
             "name": "iShares 20+ Year Treasury Bond ",
             "category": "Bond",
-            "current_price": 80.99,
+            "current_price": 81.49,
             "fundamental": {
                 "pe_ratio": "N/A",
                 "dividend_yield": "500.00%",
@@ -866,81 +866,81 @@
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 48.3,
-                "distance_from_low": "6.0%"
+                "up_vol_pct": 48.1,
+                "distance_from_low": "6.6%"
             },
             "action_plan": {
                 "buy_zone": 77.19,
-                "target_sell": 85.85,
+                "target_sell": 86.38,
                 "stop_loss": 74.14,
-                "potential_profit": "11.2%"
+                "potential_profit": "11.9%"
             }
         },
         {
             "ticker": "SHY",
             "name": "iShares 1-3 Year Treasury Bond ",
             "category": "Bond",
-            "current_price": 81.47,
+            "current_price": 81.58,
             "fundamental": {
-                "pe_ratio": 3703.18,
+                "pe_ratio": "N/A",
                 "dividend_yield": "365.00%",
-                "verdict": "MAHAL"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 36.7,
-                "distance_from_low": "0.8%"
+                "up_vol_pct": 37.4,
+                "distance_from_low": "1.0%"
             },
             "action_plan": {
                 "buy_zone": 81.62,
-                "target_sell": 86.36,
+                "target_sell": 86.47,
                 "stop_loss": 78.39,
-                "potential_profit": "5.8%"
+                "potential_profit": "5.9%"
             }
         },
         {
             "ticker": "LQD",
             "name": "iShares iBoxx $ Investment Grad",
             "category": "Bond",
-            "current_price": 104.07,
+            "current_price": 104.22,
             "fundamental": {
-                "pe_ratio": 31.47,
+                "pe_ratio": "N/A",
                 "dividend_yield": "491.00%",
-                "verdict": "MAHAL"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 48.2,
-                "distance_from_low": "2.8%"
+                "up_vol_pct": 39.4,
+                "distance_from_low": "3.0%"
             },
             "action_plan": {
                 "buy_zone": 102.21,
-                "target_sell": 110.31,
+                "target_sell": 110.47,
                 "stop_loss": 98.16,
-                "potential_profit": "7.9%"
+                "potential_profit": "8.1%"
             }
         },
         {
             "ticker": "HYG",
             "name": "iShares iBoxx $ High Yield Corp",
             "category": "Bond",
-            "current_price": 77.59,
+            "current_price": 77.58,
             "fundamental": {
-                "pe_ratio": 1293.17,
+                "pe_ratio": "N/A",
                 "dividend_yield": "614.00%",
-                "verdict": "MAHAL"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 58.5,
+                "up_vol_pct": 59.3,
                 "distance_from_low": "1.6%"
             },
             "action_plan": {
                 "buy_zone": 77.15,
-                "target_sell": 82.25,
+                "target_sell": 82.23,
                 "stop_loss": 74.1,
                 "potential_profit": "6.6%"
             }
@@ -949,30 +949,30 @@
             "ticker": "JNK",
             "name": "State Street SPDR Bloomberg Hig",
             "category": "Bond",
-            "current_price": 93.21,
+            "current_price": 93.19,
             "fundamental": {
-                "pe_ratio": 19.53,
+                "pe_ratio": "N/A",
                 "dividend_yield": "683.00%",
-                "verdict": "WAJAR"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": true,
                 "status_text": "\ud83d\udd25 AKUMULASI BANDAR",
-                "up_vol_pct": 62.5,
+                "up_vol_pct": 68.7,
                 "distance_from_low": "1.6%"
             },
             "action_plan": {
                 "buy_zone": 92.63,
-                "target_sell": 98.8,
+                "target_sell": 98.78,
                 "stop_loss": 88.96,
-                "potential_profit": "6.7%"
+                "potential_profit": "6.6%"
             }
         },
         {
             "ticker": "GLD",
             "name": "SPDR Gold Shares",
             "category": "Komoditas",
-            "current_price": 373.51,
+            "current_price": 368.57,
             "fundamental": {
                 "pe_ratio": "N/A",
                 "dividend_yield": "0.00%",
@@ -981,8 +981,8 @@
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 50.0,
-                "distance_from_low": "2.5%"
+                "up_vol_pct": 42.8,
+                "distance_from_low": "1.2%"
             },
             "action_plan": {
                 "buy_zone": 367.97,
@@ -995,7 +995,7 @@
             "ticker": "SLV",
             "name": "iShares Silver Trust",
             "category": "Komoditas",
-            "current_price": 49.06,
+            "current_price": 47.28,
             "fundamental": {
                 "pe_ratio": "N/A",
                 "dividend_yield": "0.00%",
@@ -1004,113 +1004,113 @@
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 45.6,
-                "distance_from_low": "2.5%"
+                "up_vol_pct": 53.4,
+                "distance_from_low": "0.8%"
             },
             "action_plan": {
-                "buy_zone": 48.34,
+                "buy_zone": 47.39,
                 "target_sell": 61.0,
-                "stop_loss": 46.42,
-                "potential_profit": "26.2%"
+                "stop_loss": 45.51,
+                "potential_profit": "28.7%"
             }
         },
         {
             "ticker": "USO",
             "name": "United States Oil Fund",
             "category": "Komoditas",
-            "current_price": 166.57,
+            "current_price": 168.19,
             "fundamental": {
-                "pe_ratio": 50.4,
+                "pe_ratio": "N/A",
                 "dividend_yield": "0.00%",
-                "verdict": "MAHAL"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 68.1,
-                "distance_from_low": "32.8%"
+                "up_vol_pct": 68.9,
+                "distance_from_low": "34.1%"
             },
             "action_plan": {
                 "buy_zone": 143.18,
-                "target_sell": 176.56,
+                "target_sell": 178.28,
                 "stop_loss": 137.51,
-                "potential_profit": "23.3%"
+                "potential_profit": "24.5%"
             }
         },
         {
             "ticker": "DBA",
             "name": "Invesco DB Agriculture Fund",
             "category": "Komoditas",
-            "current_price": 27.11,
+            "current_price": 27.17,
             "fundamental": {
-                "pe_ratio": 11.45,
+                "pe_ratio": 11.47,
                 "dividend_yield": "324.00%",
                 "verdict": "MURAH"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 15.8,
-                "distance_from_low": "0.1%"
+                "up_vol_pct": 21.5,
+                "distance_from_low": "0.7%"
             },
             "action_plan": {
-                "buy_zone": 27.34,
+                "buy_zone": 27.25,
                 "target_sell": 28.86,
-                "stop_loss": 26.26,
-                "potential_profit": "5.6%"
+                "stop_loss": 26.17,
+                "potential_profit": "5.9%"
             }
         },
         {
             "ticker": "VNQ",
             "name": "Vanguard Real Estate ETF",
             "category": "REITs",
-            "current_price": 91.79,
+            "current_price": 93.87,
             "fundamental": {
-                "pe_ratio": 29.05,
+                "pe_ratio": 29.71,
                 "dividend_yield": "380.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 31.8,
-                "distance_from_low": "4.2%"
+                "up_vol_pct": 31.6,
+                "distance_from_low": "6.5%"
             },
             "action_plan": {
                 "buy_zone": 88.99,
-                "target_sell": 97.3,
+                "target_sell": 99.5,
                 "stop_loss": 85.47,
-                "potential_profit": "9.3%"
+                "potential_profit": "11.8%"
             }
         },
         {
             "ticker": "IYR",
             "name": "iShares U.S. Real Estate ETF",
             "category": "REITs",
-            "current_price": 97.29,
+            "current_price": 99.47,
             "fundamental": {
-                "pe_ratio": 26.2,
+                "pe_ratio": 26.79,
                 "dividend_yield": "251.00%",
                 "verdict": "MAHAL"
             },
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 34.4,
-                "distance_from_low": "4.3%"
+                "up_vol_pct": 32.7,
+                "distance_from_low": "6.6%"
             },
             "action_plan": {
                 "buy_zone": 94.22,
-                "target_sell": 103.13,
+                "target_sell": 105.44,
                 "stop_loss": 90.49,
-                "potential_profit": "9.5%"
+                "potential_profit": "11.9%"
             }
         },
         {
             "ticker": "BITO",
             "name": "ProShares Bitcoin ETF",
             "category": "Crypto",
-            "current_price": 10.88,
+            "current_price": 10.77,
             "fundamental": {
                 "pe_ratio": "N/A",
                 "dividend_yield": "2864.00%",
@@ -1119,21 +1119,21 @@
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 49.0,
-                "distance_from_low": "24.8%"
+                "up_vol_pct": 56.6,
+                "distance_from_low": "12.5%"
             },
             "action_plan": {
-                "buy_zone": 10.28,
+                "buy_zone": 10.58,
                 "target_sell": 11.67,
-                "stop_loss": 9.87,
-                "potential_profit": "13.5%"
+                "stop_loss": 10.16,
+                "potential_profit": "10.3%"
             }
         },
         {
             "ticker": "UVXY",
             "name": "ProShares Ultra VIX Short Term ",
             "category": "Volatility",
-            "current_price": 17.33,
+            "current_price": 16.75,
             "fundamental": {
                 "pe_ratio": "N/A",
                 "dividend_yield": "0.00%",
@@ -1142,8 +1142,8 @@
             "collector_status": {
                 "is_accumulating": false,
                 "status_text": "\u26aa NETRAL",
-                "up_vol_pct": 42.9,
-                "distance_from_low": "10.5%"
+                "up_vol_pct": 42.1,
+                "distance_from_low": "6.8%"
             },
             "action_plan": {
                 "buy_zone": 15.85,

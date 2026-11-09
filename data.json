@@ -1,5 +1,5 @@
 {
-    "last_updated": "2026-11-08 11:39:07",
+    "last_updated": "2026-11-09 13:33:13",
     "total_etf": 50,
     "stocks": [
         {
@@ -836,9 +836,9 @@
             "category": "Bond",
             "current_price": 96.55,
             "fundamental": {
-                "pe_ratio": 123.15,
+                "pe_ratio": "N/A",
                 "dividend_yield": "411.00%",
-                "verdict": "MAHAL"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": false,
@@ -882,9 +882,9 @@
             "category": "Bond",
             "current_price": 81.63,
             "fundamental": {
-                "pe_ratio": 3710.45,
+                "pe_ratio": "N/A",
                 "dividend_yield": "361.00%",
-                "verdict": "MAHAL"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": true,
@@ -905,9 +905,9 @@
             "category": "Bond",
             "current_price": 104.53,
             "fundamental": {
-                "pe_ratio": 31.61,
+                "pe_ratio": "N/A",
                 "dividend_yield": "485.00%",
-                "verdict": "MAHAL"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": false,
@@ -928,9 +928,9 @@
             "category": "Bond",
             "current_price": 77.23,
             "fundamental": {
-                "pe_ratio": 1287.17,
+                "pe_ratio": "N/A",
                 "dividend_yield": "609.00%",
-                "verdict": "MAHAL"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": true,
@@ -951,9 +951,9 @@
             "category": "Bond",
             "current_price": 92.7,
             "fundamental": {
-                "pe_ratio": 19.42,
+                "pe_ratio": "N/A",
                 "dividend_yield": "683.00%",
-                "verdict": "WAJAR"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": true,
@@ -1020,9 +1020,9 @@
             "category": "Komoditas",
             "current_price": 148.41,
             "fundamental": {
-                "pe_ratio": 44.9,
+                "pe_ratio": "N/A",
                 "dividend_yield": "0.00%",
-                "verdict": "MAHAL"
+                "verdict": "N/A (ETF)"
             },
             "collector_status": {
                 "is_accumulating": false,
